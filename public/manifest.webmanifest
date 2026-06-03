@@ -1,0 +1,11 @@
+{
+  "name": "StudyHub",
+  "short_name": "StudyHub",
+  "description": "Student information portal for guides, resources and student contributions.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0b1d",
+  "theme_color": "#663399",
+  "orientation": "portrait-primary",
+  "icons": []
+}
