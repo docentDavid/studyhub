@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body>
         <header className="border-b border-purple-100 bg-[#faf8ff] px-4 py-5 dark:border-purple-950 dark:bg-[#0f0b1d] sm:px-6 lg:px-8">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">

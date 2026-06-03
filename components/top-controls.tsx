@@ -11,20 +11,15 @@ export function TopControls() {
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language") as Language | null;
-    const initialLanguage = savedLanguage === "nl" ? "nl" : "en";
+    const initialLanguage: Language =
+      savedLanguage === "nl" || savedLanguage === "en" ? savedLanguage : "en";
 
     setLanguage(initialLanguage);
     document.documentElement.lang = initialLanguage;
 
     const savedTheme = localStorage.getItem("theme") as Theme | null;
-
-    let initialTheme: Theme = "dark";
-
-    if (savedTheme === "light" || savedTheme === "dark") {
-      initialTheme = savedTheme;
-    } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-      initialTheme = "light";
-    }
+    const initialTheme: Theme =
+      savedTheme === "light" || savedTheme === "dark" ? savedTheme : "dark";
 
     setTheme(initialTheme);
     document.documentElement.classList.toggle("dark", initialTheme === "dark");
