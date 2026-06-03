@@ -3,8 +3,20 @@ import { TopControls } from "@/components/top-controls";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "StudyHub",
-  description: "Student information portal",
+  metadataBase: new URL("http://localhost:3000"),
+  title: {
+    default: "StudyHub",
+    template: "%s | StudyHub",
+  },
+  description:
+    "A responsive student information portal for guides, resources and student contributions.",
+  applicationName: "StudyHub",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "StudyHub",
+    statusBarStyle: "default",
+  },
 };
 
 export default function RootLayout({
