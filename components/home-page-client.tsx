@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Article } from "@/types/content";
-import { TopControls } from "@/components/top-controls";
 
 type Language = "en" | "nl";
 
@@ -49,6 +48,20 @@ export function HomePageClient({ articles }: HomePageClientProps) {
     if (savedLanguage === "en" || savedLanguage === "nl") {
       setLanguage(savedLanguage);
     }
+
+    function handleLanguageChange(event: Event) {
+      const customEvent = event as CustomEvent<Language>;
+
+      if (customEvent.detail === "en" || customEvent.detail === "nl") {
+        setLanguage(customEvent.detail);
+      }
+    }
+
+    window.addEventListener("language-change", handleLanguageChange);
+
+    return () => {
+      window.removeEventListener("language-change", handleLanguageChange);
+    };
   }, []);
 
   function handleLanguageChange(nextLanguage: Language) {
@@ -86,22 +99,6 @@ export function HomePageClient({ articles }: HomePageClientProps) {
   return (
     <main className="min-h-screen bg-[#faf8ff] text-[#17142a] transition-colors dark:bg-[#0f0b1d] dark:text-white">
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <div className="mb-6 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-sm font-bold uppercase tracking-wide text-[#663399] dark:text-purple-300">
-              {t.eyebrow}
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {t.subtitle}
-            </p>
-          </div>
-
-          <TopControls
-            language={language}
-            onLanguageChange={handleLanguageChange}
-          />
-        </div>
-
         <header className="mb-8 rounded-3xl bg-[#663399] p-8 text-white shadow-xl shadow-purple-950/20">
           <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-purple-100">
             {t.heroLabel}

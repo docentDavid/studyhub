@@ -28,7 +28,7 @@ Grid geeft je controle over rijen én kolommen.
 `,
 
     units: ["FED"],
-    semesters: ["Semester 2"],
+    semesters: ["Semester 3"],
 
     tags: ["css", "grid", "responsive"],
 
@@ -62,7 +62,7 @@ Onderzoek vormt de basis van goed ontwerp.
 `,
 
     units: ["IM"],
-    semesters: ["Semester 1"],
+    semesters: ["Semester 2"],
 
     tags: ["ux", "research"],
 
