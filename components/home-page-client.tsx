@@ -10,6 +10,23 @@ type HomePageClientProps = {
   articles: Article[];
 };
 
+function getSourceTypeLabel(sourceType: string) {
+  switch (sourceType) {
+    case "guide":
+      return "📘 Guide";
+    case "article":
+      return "📰 Article";
+    case "video":
+      return "🎥 Video";
+    case "external-source":
+      return "🔗 External source";
+    case "student-source":
+      return "🎓 Student source";
+    default:
+      return "Resource";
+  }
+}
+
 const copy = {
   en: {
     eyebrow: "StudyHub",
@@ -178,6 +195,9 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                   </span>
                 ))}
               </div>
+              <p className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                {getSourceTypeLabel(article.sourceType)}
+              </p>
 
               <h2 className="text-xl font-black tracking-tight">
                 {article.title}
