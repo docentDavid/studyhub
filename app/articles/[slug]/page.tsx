@@ -153,7 +153,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     href={`/articles/${item.slug}`}
                     className="block rounded-2xl bg-[var(--brand-soft)] p-3 text-sm font-bold text-[var(--brand)] transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
                   >
-                    {item.title[language]}
+                    {item.title.en}
                   </Link>
                 ))
               ) : (
