@@ -29,8 +29,6 @@ function getSourceTypeLabel(sourceType: string) {
 
 const copy = {
   en: {
-    eyebrow: "StudyHub",
-    subtitle: "Student information portal",
     title: "Inspiration, guides and resources for students.",
     description:
       "Useful articles, tutorials and curated resources to support your studies, develop new skills and stay inspired throughout your learning journey.",
@@ -40,10 +38,12 @@ const copy = {
     allSemesters: "All semesters",
     allTags: "All tags",
     by: "By",
+    latestResources: "Latest resources",
+    latestDescription: "Recently added articles, guides and useful sources.",
+    allResources: "All resources",
+    updated: "Updated",
   },
   nl: {
-    eyebrow: "StudyHub",
-    subtitle: "Studenten informatieportaal",
     title: "Inspiratie, handleidingen en bronnen voor studenten.",
     description:
       "Nuttige artikelen, tutorials en geselecteerde bronnen om je studie te ondersteunen, nieuwe vaardigheden te ontwikkelen en geïnspireerd te blijven tijdens je leerproces.",
@@ -53,6 +53,11 @@ const copy = {
     allSemesters: "Alle semesters",
     allTags: "Alle tags",
     by: "Door",
+    latestResources: "Nieuwste bronnen",
+    latestDescription:
+      "Recent toegevoegde artikelen, gidsen en nuttige bronnen.",
+    allResources: "Alle bronnen",
+    updated: "Bijgewerkt",
   },
 };
 
@@ -80,12 +85,6 @@ export function HomePageClient({ articles }: HomePageClientProps) {
       window.removeEventListener("language-change", handleLanguageChange);
     };
   }, []);
-
-  function handleLanguageChange(nextLanguage: Language) {
-    setLanguage(nextLanguage);
-    localStorage.setItem("language", nextLanguage);
-    document.documentElement.lang = nextLanguage;
-  }
 
   const approvedArticles = articles.filter(
     (article) => article.status === "approved",
@@ -121,9 +120,9 @@ export function HomePageClient({ articles }: HomePageClientProps) {
   const t = copy[language];
 
   return (
-    <main className="min-h-screen bg-[#faf8ff] text-[#17142a] transition-colors dark:bg-[#0f0b1d] dark:text-white">
+    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors">
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <header className="mb-6 rounded-3xl bg-[#663399] p-6 text-white shadow-xl shadow-purple-950/20 sm:p-8">
+        <header className="mb-6 rounded-3xl bg-[var(--brand-dark)] p-6 text-white shadow-xl shadow-purple-950/20 sm:p-8">
           <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">
             {t.title}
           </h1>
@@ -134,33 +133,33 @@ export function HomePageClient({ articles }: HomePageClientProps) {
 
           <Link
             href="/submit"
-            className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[#663399] transition hover:opacity-90"
+            className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[#663399] transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[var(--brand-dark)]"
           >
             {t.submitResource}
           </Link>
         </header>
 
-        <section className="mb-8 grid gap-4 rounded-3xl border border-purple-100 bg-white p-4 shadow-sm dark:border-purple-950 dark:bg-[#17142a] md:grid-cols-4">
+        <section className="mb-10 grid gap-4 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-sm md:grid-cols-4">
           <input
-            className="rounded-2xl border border-purple-100 bg-white px-4 py-3 text-[#17142a] outline-none focus:ring-2 focus:ring-[#663399] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white"
+            className="rounded-2xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)] outline-none focus:ring-2 focus:ring-[var(--brand)]"
             placeholder={t.search}
           />
 
-          <select className="rounded-2xl border border-purple-100 bg-white px-4 py-3 text-[#17142a] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white">
+          <select className="rounded-2xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)]">
             <option>{t.allUnits}</option>
             {units.map((unit) => (
               <option key={unit}>{unit}</option>
             ))}
           </select>
 
-          <select className="rounded-2xl border border-purple-100 bg-white px-4 py-3 text-[#17142a] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white">
+          <select className="rounded-2xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)]">
             <option>{t.allSemesters}</option>
             {semesters.map((semester) => (
               <option key={semester}>{semester}</option>
             ))}
           </select>
 
-          <select className="rounded-2xl border border-purple-100 bg-white px-4 py-3 text-[#17142a] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white">
+          <select className="rounded-2xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)]">
             <option>{t.allTags}</option>
             {tags.map((tag) => (
               <option key={tag}>{tag}</option>
@@ -168,16 +167,14 @@ export function HomePageClient({ articles }: HomePageClientProps) {
           </select>
         </section>
 
-        <section className="mb-10">
-          <div className="mb-4">
+        <section className="mb-12">
+          <div className="mb-5">
             <h2 className="text-2xl font-black tracking-tight">
-              {language === "en" ? "Latest resources" : "Nieuwste bronnen"}
+              {t.latestResources}
             </h2>
 
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              {language === "en"
-                ? "Recently added articles, guides and useful sources."
-                : "Recent toegevoegde artikelen, gidsen en nuttige bronnen."}
+            <p className="mt-1 text-sm text-[var(--muted)]">
+              {t.latestDescription}
             </p>
           </div>
 
@@ -186,9 +183,9 @@ export function HomePageClient({ articles }: HomePageClientProps) {
               <Link
                 key={article.id}
                 href={`/articles/${article.slug}`}
-                className="rounded-3xl border border-purple-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/10 dark:border-purple-950 dark:bg-[#17142a]"
+                className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/10 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
               >
-                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
                   {getSourceTypeLabel(article.sourceType)}
                 </p>
 
@@ -196,31 +193,28 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                   {article.title}
                 </h3>
 
-                <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
                   {article.summary}
                 </p>
 
-                <p className="mt-5 text-xs font-semibold text-gray-500 dark:text-gray-400">
-                  {language === "en" ? "Updated" : "Bijgewerkt"}{" "}
-                  {article.updatedAt}
+                <p className="mt-5 text-xs font-semibold text-[var(--muted)]">
+                  {t.updated} {article.updatedAt}
                 </p>
               </Link>
             ))}
           </div>
         </section>
 
-        <div className="mb-4 flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-black tracking-tight">
-              {language === "en" ? "All resources" : "Alle bronnen"}
-            </h2>
+        <div className="mb-5 border-t border-[var(--border)] pt-8">
+          <h2 className="text-2xl font-black tracking-tight">
+            {t.allResources}
+          </h2>
 
-            <p className="mt-1 text-sm font-semibold text-gray-500 dark:text-gray-400">
-              {language === "en"
-                ? `Showing ${approvedArticles.length} resources`
-                : `${approvedArticles.length} bronnen gevonden`}
-            </p>
-          </div>
+          <p className="mt-1 text-sm font-semibold text-[var(--muted)]">
+            {language === "en"
+              ? `Showing ${approvedArticles.length} resources`
+              : `${approvedArticles.length} bronnen gevonden`}
+          </p>
         </div>
 
         <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -228,13 +222,13 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             <Link
               key={article.id}
               href={`/articles/${article.slug}`}
-              className="rounded-3xl border border-purple-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/10 dark:border-purple-950 dark:bg-[#17142a]"
+              className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/10 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
             >
               <div className="mb-4 flex flex-wrap gap-2">
                 {article.units.map((unit) => (
                   <span
                     key={unit}
-                    className="rounded-full bg-purple-100 px-3 py-1 text-xs font-bold text-[#663399] dark:bg-purple-950 dark:text-purple-200"
+                    className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-bold text-[var(--brand)]"
                   >
                     {unit}
                   </span>
@@ -243,13 +237,14 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                 {article.semesters.map((semester) => (
                   <span
                     key={semester}
-                    className="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-600 dark:bg-white/10 dark:text-gray-300"
+                    className="rounded-full border border-[var(--border)] bg-[var(--surface-soft)] px-3 py-1 text-xs font-bold text-[var(--muted)]"
                   >
                     {semester}
                   </span>
                 ))}
               </div>
-              <p className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+
+              <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
                 {getSourceTypeLabel(article.sourceType)}
               </p>
 
@@ -257,7 +252,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                 {article.title}
               </h2>
 
-              <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">
+              <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
                 {article.summary}
               </p>
 
@@ -265,14 +260,14 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                 {article.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-purple-50 px-3 py-1 text-xs font-semibold text-[#663399] dark:bg-purple-950 dark:text-purple-200"
+                    className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-semibold text-[var(--brand)]"
                   >
                     #{tag}
                   </span>
                 ))}
               </div>
 
-              <p className="mt-5 text-xs font-semibold text-gray-500 dark:text-gray-400">
+              <p className="mt-5 text-xs font-semibold text-[var(--muted)]">
                 {t.by} {article.authorName}
               </p>
             </Link>

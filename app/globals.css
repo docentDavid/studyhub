@@ -3,16 +3,29 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #17142a;
+  --muted: #5f5a72;
+  --surface: #ffffff;
+  --surface-soft: #faf8ff;
+  --brand: #663399;
+  --brand-dark: #3f1f68;
+  --brand-soft: #f1e8ff;
+  --border: #e7dcf5;
 }
 
 html.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #0f0b1d;
+  --foreground: #f8f5ff;
+  --muted: #c6bdd8;
+  --surface: #17142a;
+  --surface-soft: #201735;
+  --brand: #a78bfa;
+  --brand-dark: #663399;
+  --brand-soft: #2d2048;
+  --border: #392957;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
