@@ -91,6 +91,13 @@ export function HomePageClient({ articles }: HomePageClientProps) {
     (article) => article.status === "approved",
   );
 
+  const latestArticles = [...approvedArticles]
+    .sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    )
+    .slice(0, 3);
+
   const units = useMemo(
     () =>
       Array.from(new Set(approvedArticles.flatMap((article) => article.units))),
@@ -161,12 +168,59 @@ export function HomePageClient({ articles }: HomePageClientProps) {
           </select>
         </section>
 
+        <section className="mb-10">
+          <div className="mb-4">
+            <h2 className="text-2xl font-black tracking-tight">
+              {language === "en" ? "Latest resources" : "Nieuwste bronnen"}
+            </h2>
+
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              {language === "en"
+                ? "Recently added articles, guides and useful sources."
+                : "Recent toegevoegde artikelen, gidsen en nuttige bronnen."}
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {latestArticles.map((article) => (
+              <Link
+                key={article.id}
+                href={`/articles/${article.slug}`}
+                className="rounded-3xl border border-purple-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/10 dark:border-purple-950 dark:bg-[#17142a]"
+              >
+                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                  {getSourceTypeLabel(article.sourceType)}
+                </p>
+
+                <h3 className="text-lg font-black tracking-tight">
+                  {article.title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                  {article.summary}
+                </p>
+
+                <p className="mt-5 text-xs font-semibold text-gray-500 dark:text-gray-400">
+                  {language === "en" ? "Updated" : "Bijgewerkt"}{" "}
+                  {article.updatedAt}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         <div className="mb-4 flex items-center justify-between">
-          <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">
-            {language === "en"
-              ? `Showing ${approvedArticles.length} resources`
-              : `${approvedArticles.length} bronnen gevonden`}
-          </p>
+          <div>
+            <h2 className="text-2xl font-black tracking-tight">
+              {language === "en" ? "All resources" : "Alle bronnen"}
+            </h2>
+
+            <p className="mt-1 text-sm font-semibold text-gray-500 dark:text-gray-400">
+              {language === "en"
+                ? `Showing ${approvedArticles.length} resources`
+                : `${approvedArticles.length} bronnen gevonden`}
+            </p>
+          </div>
         </div>
 
         <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
