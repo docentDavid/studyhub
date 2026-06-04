@@ -183,12 +183,12 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             </p>
           </div>
 
-          <div className="flex snap-x gap-5 overflow-x-auto pb-4">
+          <div className="flex snap-x gap-5 overflow-x-auto pb-4 md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-5">
             {latestArticles.map((article) => (
               <Link
                 key={article.id}
                 href={`/articles/${article.slug}`}
-                className={`${cardClassName} min-w-[85%] snap-start sm:min-w-[420px] lg:min-w-[360px]`}
+                className={`${cardClassName} min-w-[85%] snap-start md:min-w-0`}
               >
                 <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
                   {getSourceTypeLabel(article.sourceType)}
