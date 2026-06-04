@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SiteBranding } from "@/components/site-branding";
 import { TopControls } from "@/components/top-controls";
+import { Footer } from "@/components/footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -37,6 +37,8 @@ export default function RootLayout({
         </header>
 
         {children}
+
+        <Footer />
       </body>
     </html>
   );
