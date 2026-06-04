@@ -147,29 +147,43 @@ export function HomePageClient({ articles }: HomePageClientProps) {
           </Link>
         </header>
 
-        <section className="mb-10 grid gap-4 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-sm md:grid-cols-4">
-          <input className={fieldClassName} placeholder={t.search} />
+        <section className="mb-10">
+          <div className="mb-4">
+            <h2 className="text-2xl font-black tracking-tight">
+              {language === "en" ? "Find resources" : "Zoek bronnen"}
+            </h2>
 
-          <select className={fieldClassName}>
-            <option>{t.allUnits}</option>
-            {units.map((unit) => (
-              <option key={unit}>{unit}</option>
-            ))}
-          </select>
+            <p className="mt-1 text-sm text-[var(--muted)]">
+              {language === "en"
+                ? "Search and filter the resource library."
+                : "Zoek en filter door de bronnenbibliotheek."}
+            </p>
+          </div>
 
-          <select className={fieldClassName}>
-            <option>{t.allSemesters}</option>
-            {semesters.map((semester) => (
-              <option key={semester}>{semester}</option>
-            ))}
-          </select>
+          <div className="grid gap-4 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-sm md:grid-cols-4">
+            <input className={fieldClassName} placeholder={t.search} />
 
-          <select className={fieldClassName}>
-            <option>{t.allTags}</option>
-            {tags.map((tag) => (
-              <option key={tag}>{tag}</option>
-            ))}
-          </select>
+            <select className={fieldClassName}>
+              <option>{t.allUnits}</option>
+              {units.map((unit) => (
+                <option key={unit}>{unit}</option>
+              ))}
+            </select>
+
+            <select className={fieldClassName}>
+              <option>{t.allSemesters}</option>
+              {semesters.map((semester) => (
+                <option key={semester}>{semester}</option>
+              ))}
+            </select>
+
+            <select className={fieldClassName}>
+              <option>{t.allTags}</option>
+              {tags.map((tag) => (
+                <option key={tag}>{tag}</option>
+              ))}
+            </select>
+          </div>
         </section>
 
         <section className="mb-12">
