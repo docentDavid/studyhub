@@ -9,23 +9,26 @@ export type SourceType =
 
 export type EducationalUnit = "FED" | "IM" | "DES" | "PROG" | "GENERAL";
 
+export type LocalizedText = {
+  en: string;
+  nl: string;
+};
+
 export type Article = {
   id: string;
   slug: string;
 
-  title: string;
-  summary: string;
-  contentMarkdown: string;
+  title: LocalizedText;
+  summary: LocalizedText;
+  contentMarkdown: LocalizedText;
 
   units: EducationalUnit[];
   semesters: string[];
   tags: string[];
 
   authorName: string;
-
   sourceType: SourceType;
   status: ContentStatus;
-
   url?: string;
 
   createdAt: string;

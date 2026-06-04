@@ -195,11 +195,11 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                 </p>
 
                 <h3 className="text-lg font-black tracking-tight">
-                  {article.title}
+                  {article.title[language]}
                 </h3>
 
                 <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
-                  {article.summary}
+                  {article.summary[language]}
                 </p>
 
                 <p className="mt-5 text-xs font-semibold text-[var(--muted)]">
@@ -252,11 +252,11 @@ export function HomePageClient({ articles }: HomePageClientProps) {
               </p>
 
               <h2 className="text-xl font-black tracking-tight">
-                {article.title}
+                {article.title[language]}
               </h2>
 
               <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
-                {article.summary}
+                {article.summary[language]}
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2">

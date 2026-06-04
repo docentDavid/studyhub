@@ -97,11 +97,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </div>
 
           <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-6xl">
-            {article.title}
+            {article.title[language]}
           </h1>
 
           <p className="mt-5 max-w-2xl text-lg leading-8 text-[var(--muted)]">
-            {article.summary}
+            {article.summary[language]}
           </p>
 
           <div className="mt-6 flex flex-wrap gap-2">
@@ -116,7 +116,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </div>
 
           <div className="mt-10 whitespace-pre-wrap rounded-3xl bg-[var(--surface-soft)] p-6 leading-8 text-[var(--foreground)]">
-            {article.contentMarkdown}
+            {article.contentMarkdown[language]}
           </div>
         </article>
 
@@ -153,7 +153,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     href={`/articles/${item.slug}`}
                     className="block rounded-2xl bg-[var(--brand-soft)] p-3 text-sm font-bold text-[var(--brand)] transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
                   >
-                    {item.title}
+                    {item.title[language]}
                   </Link>
                 ))
               ) : (
