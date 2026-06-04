@@ -31,18 +31,20 @@ export function SiteBranding() {
   }, []);
 
   return (
-    <Link href="/" aria-label="Go to homepage">
-      <div className="cursor-pointer">
-        <p className="text-sm font-black uppercase tracking-wide text-[#663399] dark:text-purple-300">
-          StudyHub
-        </p>
+    <Link
+      href="/"
+      aria-label="Go to homepage"
+      className="block cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--brand)] focus:ring-offset-2"
+    >
+      <p className="text-sm font-black uppercase tracking-wide text-[var(--brand)]">
+        StudyHub
+      </p>
 
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          {language === "en"
-            ? "Student Information Portal"
-            : "Studenten Informatieportaal"}
-        </p>
-      </div>
+      <p className="text-sm text-[var(--muted)]">
+        {language === "en"
+          ? "Student Information Portal"
+          : "Studenten Informatieportaal"}
+      </p>
     </Link>
   );
 }

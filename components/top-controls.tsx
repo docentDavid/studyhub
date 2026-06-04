@@ -47,17 +47,21 @@ export function TopControls() {
     document.documentElement.style.colorScheme = nextTheme;
   }
 
+  const inactiveButtonClassName =
+    "text-[var(--muted)] hover:bg-[var(--brand-soft)] hover:text-[var(--brand)]";
+
+  const activeButtonClassName = "bg-[var(--brand-dark)] text-white shadow-sm";
+
   return (
-    <div className="flex items-center gap-2 rounded-full border border-purple-200 bg-white/80 p-1 shadow-sm backdrop-blur dark:border-purple-900 dark:bg-[#17142a]/80">
+    <div className="flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)]/80 p-1 shadow-sm backdrop-blur">
       <button
         type="button"
         onClick={() => changeLanguage("en")}
-        className={`rounded-full px-3 py-2 text-sm ${
-          language === "en"
-            ? "bg-[#663399] text-white"
-            : "text-gray-600 dark:text-gray-300"
+        className={`rounded-full px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-[var(--brand)] ${
+          language === "en" ? activeButtonClassName : inactiveButtonClassName
         }`}
         aria-label="Switch to English"
+        aria-pressed={language === "en"}
       >
         🇬🇧
       </button>
@@ -65,23 +69,25 @@ export function TopControls() {
       <button
         type="button"
         onClick={() => changeLanguage("nl")}
-        className={`rounded-full px-3 py-2 text-sm ${
-          language === "nl"
-            ? "bg-[#663399] text-white"
-            : "text-gray-600 dark:text-gray-300"
+        className={`rounded-full px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-[var(--brand)] ${
+          language === "nl" ? activeButtonClassName : inactiveButtonClassName
         }`}
         aria-label="Switch to Dutch"
+        aria-pressed={language === "nl"}
       >
         🇳🇱
       </button>
 
-      <div className="mx-1 h-6 w-px bg-purple-200 dark:bg-purple-900" />
+      <div className="mx-1 h-6 w-px bg-[var(--border)]" />
 
       <button
         type="button"
         onClick={toggleTheme}
-        className="rounded-full bg-purple-100 px-3 py-2 text-sm text-[#663399] dark:bg-purple-950 dark:text-purple-200"
-        aria-label="Toggle theme"
+        className="rounded-full bg-[var(--brand-soft)] px-3 py-2 text-sm text-[var(--brand)] transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+        aria-label={
+          theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+        }
+        aria-pressed={theme === "dark"}
       >
         {theme === "dark" ? "☀️" : "🌙"}
       </button>

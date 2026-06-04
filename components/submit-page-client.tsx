@@ -72,42 +72,47 @@ export function SubmitPageClient() {
 
   const t = copy[language];
 
+  const fieldClassName =
+    "mt-2 w-full rounded-2xl border border-[var(--border)] bg-[var(--background)] p-3 text-[var(--foreground)] outline-none focus:ring-2 focus:ring-[var(--brand)]";
+
   return (
-    <main className="min-h-screen bg-[#faf8ff] px-4 py-8 text-[#17142a] dark:bg-[#0f0b1d] dark:text-white sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[var(--background)] px-4 py-8 text-[var(--foreground)] sm:px-6 lg:px-8">
       <section className="mx-auto max-w-6xl">
         <Link
           href="/"
-          className="mb-6 inline-flex rounded-full border border-purple-200 bg-white px-4 py-2 text-sm font-bold text-[#663399] transition hover:bg-purple-50 dark:border-purple-900 dark:bg-[#17142a] dark:text-purple-200 dark:hover:bg-purple-950"
+          className="mb-6 inline-flex rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-sm font-bold text-[var(--brand)] transition hover:bg-[var(--brand-soft)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
         >
           ← {t.back}
         </Link>
 
         <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
-          <aside className="rounded-3xl bg-[#663399] p-8 text-white">
+          <aside className="rounded-3xl bg-[var(--brand-dark)] p-8 text-white">
             <p className="mb-3 text-sm font-bold uppercase text-purple-100">
               {t.label}
             </p>
+
             <h1 className="text-4xl font-black tracking-tight">{t.title}</h1>
+
             <p className="mt-4 leading-7 text-purple-100">{t.intro}</p>
           </aside>
 
-          <form className="rounded-3xl border border-purple-100 bg-white p-6 shadow-sm dark:border-purple-950 dark:bg-[#17142a] md:p-8">
+          <form className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm md:p-8">
             <div className="grid gap-4 md:grid-cols-2">
-              <label className="font-bold">
+              <label className="font-bold text-[var(--foreground)]">
                 {t.name}
-                <input className="mt-2 w-full rounded-2xl border border-purple-100 bg-white p-3 text-[#17142a] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white" />
+                <input className={fieldClassName} />
               </label>
 
-              <label className="font-bold">
+              <label className="font-bold text-[var(--foreground)]">
                 {t.sourceTitle}
-                <input className="mt-2 w-full rounded-2xl border border-purple-100 bg-white p-3 text-[#17142a] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white" />
+                <input className={fieldClassName} />
               </label>
             </div>
 
             <div className="mt-4 grid gap-4 md:grid-cols-3">
-              <label className="font-bold">
+              <label className="font-bold text-[var(--foreground)]">
                 {t.unit}
-                <select className="mt-2 w-full rounded-2xl border border-purple-100 bg-white p-3 text-[#17142a] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white">
+                <select className={fieldClassName}>
                   <option>FED</option>
                   <option>IM</option>
                   <option>DES</option>
@@ -116,9 +121,9 @@ export function SubmitPageClient() {
                 </select>
               </label>
 
-              <label className="font-bold">
+              <label className="font-bold text-[var(--foreground)]">
                 {t.semester}
-                <select className="mt-2 w-full rounded-2xl border border-purple-100 bg-white p-3 text-[#17142a] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white">
+                <select className={fieldClassName}>
                   <option>Semester 1</option>
                   <option>Semester 2</option>
                   <option>Semester 3</option>
@@ -126,9 +131,9 @@ export function SubmitPageClient() {
                 </select>
               </label>
 
-              <label className="font-bold">
+              <label className="font-bold text-[var(--foreground)]">
                 {t.type}
-                <select className="mt-2 w-full rounded-2xl border border-purple-100 bg-white p-3 text-[#17142a] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white">
+                <select className={fieldClassName}>
                   <option>external-source</option>
                   <option>article</option>
                   <option>video</option>
@@ -138,23 +143,20 @@ export function SubmitPageClient() {
               </label>
             </div>
 
-            <label className="mt-4 block font-bold">
+            <label className="mt-4 block font-bold text-[var(--foreground)]">
               {t.tags}
-              <input className="mt-2 w-full rounded-2xl border border-purple-100 bg-white p-3 text-[#17142a] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white" />
+              <input className={fieldClassName} />
             </label>
 
-            <label className="mt-4 block font-bold">
+            <label className="mt-4 block font-bold text-[var(--foreground)]">
               {t.url}
-              <input
-                type="url"
-                className="mt-2 w-full rounded-2xl border border-purple-100 bg-white p-3 text-[#17142a] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white"
-              />
+              <input type="url" className={fieldClassName} />
             </label>
 
-            <label className="mt-4 block font-bold">
+            <label className="mt-4 block font-bold text-[var(--foreground)]">
               {t.reason}
               <textarea
-                className="mt-2 min-h-36 w-full rounded-2xl border border-purple-100 bg-white p-3 text-[#17142a] dark:border-purple-900 dark:bg-[#0f0b1d] dark:text-white"
+                className={`${fieldClassName} min-h-36`}
                 placeholder={t.reasonPlaceholder}
               />
             </label>
@@ -162,14 +164,14 @@ export function SubmitPageClient() {
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <button
                 type="submit"
-                className="rounded-2xl bg-[#663399] px-6 py-3 font-bold text-white"
+                className="rounded-2xl bg-[var(--brand-dark)] px-6 py-3 font-bold text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
               >
                 {t.submit}
               </button>
 
               <Link
                 href="/"
-                className="rounded-2xl border border-purple-200 px-6 py-3 text-center font-bold text-[#663399] transition hover:bg-purple-50 dark:border-purple-900 dark:text-purple-200 dark:hover:bg-purple-950"
+                className="rounded-2xl border border-[var(--border)] px-6 py-3 text-center font-bold text-[var(--brand)] transition hover:bg-[var(--brand-soft)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
               >
                 {t.cancel}
               </Link>

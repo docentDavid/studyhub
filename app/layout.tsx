@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import { Open_Sans } from "next/font/google";
 import { SiteBranding } from "@/components/site-branding";
 import { TopControls } from "@/components/top-controls";
 import { Footer } from "@/components/footer";
-import { Open_Sans } from "next/font/google";
 import "./globals.css";
 
 const openSans = Open_Sans({
@@ -36,13 +36,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={openSans.className}>
-        <header className="border-b border-purple-100 bg-[#faf8ff] px-4 py-5 dark:border-purple-950 dark:bg-[#0f0b1d] sm:px-6 lg:px-8">
+        <header className="border-b border-[var(--border)] bg-[var(--background)] px-4 py-5 sm:px-6 lg:px-8">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
             <SiteBranding />
             <TopControls />
           </div>
         </header>
+
         {children}
+
         <Footer />
       </body>
     </html>

@@ -37,11 +37,12 @@ const copy = {
     allUnits: "All units",
     allSemesters: "All semesters",
     allTags: "All tags",
-    by: "By",
     latestResources: "Latest resources",
     latestDescription: "Recently added articles, guides and useful sources.",
     allResources: "All resources",
     updated: "Updated",
+    by: "By",
+    showingResources: (count: number) => `Showing ${count} resources`,
   },
   nl: {
     title: "Inspiratie, handleidingen en bronnen voor studenten.",
@@ -52,12 +53,13 @@ const copy = {
     allUnits: "Alle units",
     allSemesters: "Alle semesters",
     allTags: "Alle tags",
-    by: "Door",
     latestResources: "Nieuwste bronnen",
     latestDescription:
       "Recent toegevoegde artikelen, gidsen en nuttige bronnen.",
     allResources: "Alle bronnen",
     updated: "Bijgewerkt",
+    by: "Door",
+    showingResources: (count: number) => `${count} bronnen gevonden`,
   },
 };
 
@@ -119,6 +121,12 @@ export function HomePageClient({ articles }: HomePageClientProps) {
 
   const t = copy[language];
 
+  const cardClassName =
+    "rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/10 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]";
+
+  const fieldClassName =
+    "rounded-2xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)] outline-none focus:ring-2 focus:ring-[var(--brand)]";
+
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors">
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -133,33 +141,30 @@ export function HomePageClient({ articles }: HomePageClientProps) {
 
           <Link
             href="/submit"
-            className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[#663399] transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[var(--brand-dark)]"
+            className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[var(--brand-dark)] transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[var(--brand-dark)]"
           >
             {t.submitResource}
           </Link>
         </header>
 
         <section className="mb-10 grid gap-4 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-sm md:grid-cols-4">
-          <input
-            className="rounded-2xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)] outline-none focus:ring-2 focus:ring-[var(--brand)]"
-            placeholder={t.search}
-          />
+          <input className={fieldClassName} placeholder={t.search} />
 
-          <select className="rounded-2xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)]">
+          <select className={fieldClassName}>
             <option>{t.allUnits}</option>
             {units.map((unit) => (
               <option key={unit}>{unit}</option>
             ))}
           </select>
 
-          <select className="rounded-2xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)]">
+          <select className={fieldClassName}>
             <option>{t.allSemesters}</option>
             {semesters.map((semester) => (
               <option key={semester}>{semester}</option>
             ))}
           </select>
 
-          <select className="rounded-2xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)]">
+          <select className={fieldClassName}>
             <option>{t.allTags}</option>
             {tags.map((tag) => (
               <option key={tag}>{tag}</option>
@@ -183,7 +188,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
               <Link
                 key={article.id}
                 href={`/articles/${article.slug}`}
-                className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/10 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+                className={cardClassName}
               >
                 <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
                   {getSourceTypeLabel(article.sourceType)}
@@ -211,9 +216,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
           </h2>
 
           <p className="mt-1 text-sm font-semibold text-[var(--muted)]">
-            {language === "en"
-              ? `Showing ${approvedArticles.length} resources`
-              : `${approvedArticles.length} bronnen gevonden`}
+            {t.showingResources(approvedArticles.length)}
           </p>
         </div>
 
@@ -222,7 +225,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             <Link
               key={article.id}
               href={`/articles/${article.slug}`}
-              className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/10 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+              className={cardClassName}
             >
               <div className="mb-4 flex flex-wrap gap-2">
                 {article.units.map((unit) => (
