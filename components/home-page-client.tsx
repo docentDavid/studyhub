@@ -97,7 +97,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
       (a, b) =>
         new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
     )
-    .slice(0, 5);
+    .slice(0, 4);
 
   const units = useMemo(
     () =>
@@ -183,7 +183,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             </p>
           </div>
 
-          <div className="flex snap-x gap-5 overflow-x-auto pb-4 md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-5">
+          <div className="flex snap-x gap-5 overflow-x-auto pb-4 md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-4">
             {latestArticles.map((article) => (
               <Link
                 key={article.id}
