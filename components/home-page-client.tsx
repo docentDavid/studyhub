@@ -144,6 +144,14 @@ export function HomePageClient({ articles }: HomePageClientProps) {
           </select>
         </section>
 
+        <div className="mb-4 flex items-center justify-between">
+          <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">
+            {language === "en"
+              ? `Showing ${approvedArticles.length} resources`
+              : `${approvedArticles.length} bronnen gevonden`}
+          </p>
+        </div>
+
         <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {approvedArticles.map((article) => (
             <Link
