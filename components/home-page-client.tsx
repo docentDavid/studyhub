@@ -14,10 +14,10 @@ const copy = {
   en: {
     eyebrow: "StudyHub",
     subtitle: "Student information portal",
-    heroLabel: "For FED, IM and other learning units",
-    title: "Guides, resources and student contributions in one place.",
+    title: "Inspiration, guides and resources for students.",
     description:
-      "A responsive learning portal where students can discover articles, filter by tags and submit useful sources for review.",
+      "Useful articles, tutorials and curated resources to support your studies, develop new skills and stay inspired throughout your learning journey.",
+    submitResource: "Submit Resource",
     search: "Search articles...",
     allUnits: "All units",
     allSemesters: "All semesters",
@@ -27,10 +27,10 @@ const copy = {
   nl: {
     eyebrow: "StudyHub",
     subtitle: "Studenten informatieportaal",
-    heroLabel: "Voor FED, IM en andere onderwijseenheden",
-    title: "Guides, bronnen en studentbijdragen op één plek.",
+    title: "Inspiratie, handleidingen en bronnen voor studenten.",
     description:
-      "Een responsive leerportaal waar studenten artikelen ontdekken, filteren op tags en nuttige bronnen kunnen insturen.",
+      "Nuttige artikelen, tutorials en geselecteerde bronnen om je studie te ondersteunen, nieuwe vaardigheden te ontwikkelen en geïnspireerd te blijven tijdens je leerproces.",
+    submitResource: "Bron insturen",
     search: "Zoek artikelen...",
     allUnits: "Alle units",
     allSemesters: "Alle semesters",
@@ -99,11 +99,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
   return (
     <main className="min-h-screen bg-[#faf8ff] text-[#17142a] transition-colors dark:bg-[#0f0b1d] dark:text-white">
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <header className="mb-8 rounded-3xl bg-[#663399] p-6 text-white shadow-xl shadow-purple-950/20 sm:p-8">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-purple-100">
-            {t.heroLabel}
-          </p>
-
+        <header className="mb-6 rounded-3xl bg-[#663399] p-6 text-white shadow-xl shadow-purple-950/20 sm:p-8">
           <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">
             {t.title}
           </h1>
@@ -116,7 +112,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             href="/submit"
             className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[#663399] transition hover:opacity-90"
           >
-            Submit Resource
+            {t.submitResource}
           </Link>
         </header>
 
