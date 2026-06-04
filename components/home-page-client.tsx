@@ -99,18 +99,25 @@ export function HomePageClient({ articles }: HomePageClientProps) {
   return (
     <main className="min-h-screen bg-[#faf8ff] text-[#17142a] transition-colors dark:bg-[#0f0b1d] dark:text-white">
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <header className="mb-8 rounded-3xl bg-[#663399] p-8 text-white shadow-xl shadow-purple-950/20">
+        <header className="mb-8 rounded-3xl bg-[#663399] p-6 text-white shadow-xl shadow-purple-950/20 sm:p-8">
           <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-purple-100">
             {t.heroLabel}
           </p>
 
-          <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-6xl">
+          <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">
             {t.title}
           </h1>
 
-          <p className="mt-5 max-w-2xl text-lg text-purple-100">
+          <p className="mt-5 max-w-2xl text-base leading-7 text-purple-100 sm:text-lg">
             {t.description}
           </p>
+
+          <Link
+            href="/submit"
+            className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[#663399] transition hover:opacity-90"
+          >
+            Submit Resource
+          </Link>
         </header>
 
         <section className="mb-8 grid gap-4 rounded-3xl border border-purple-100 bg-white p-4 shadow-sm dark:border-purple-950 dark:bg-[#17142a] md:grid-cols-4">
