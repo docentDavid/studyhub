@@ -113,6 +113,11 @@ const copy = {
 export function HomePageClient({ articles }: HomePageClientProps) {
   const [language, setLanguage] = useState<Language>("en");
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedSemester, setSelectedSemester] = useState("");
+  const [selectedTopic, setSelectedTopic] = useState("");
+
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language") as Language | null;
 
@@ -138,6 +143,28 @@ export function HomePageClient({ articles }: HomePageClientProps) {
   const approvedArticles = articles.filter(
     (article) => article.status === "approved",
   );
+
+  const filteredArticles = approvedArticles.filter((article) => {
+    const matchesSearch =
+      searchQuery.trim() === "" ||
+      article.title[language]
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      article.summary[language]
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+
+    const matchesType =
+      selectedType === "" || article.sourceType === selectedType;
+
+    const matchesSemester =
+      selectedSemester === "" || article.semesters.includes(selectedSemester);
+
+    const matchesTopic =
+      selectedTopic === "" || article.tags.includes(selectedTopic);
+
+    return matchesSearch && matchesType && matchesSemester && matchesTopic;
+  });
 
   const latestArticles = [...approvedArticles]
     .sort(
@@ -212,26 +239,51 @@ export function HomePageClient({ articles }: HomePageClientProps) {
           </div>
 
           <div className="grid gap-4 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-sm md:grid-cols-4">
-            <input className={fieldClassName} placeholder={t.search} />
+            <input
+              className={fieldClassName}
+              placeholder={t.search}
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+            />
 
-            <select className={fieldClassName}>
-              <option>{t.allContentTypes}</option>
+            <select
+              className={fieldClassName}
+              value={selectedType}
+              onChange={(event) => setSelectedType(event.target.value)}
+            >
+              <option value="">{t.allContentTypes}</option>
               {sourceTypes.map((type) => (
-                <option key={type}>{getSourceTypeName(type, language)}</option>
+                <option key={type} value={type}>
+                  {getSourceTypeName(type, language)}
+                </option>
               ))}
             </select>
 
-            <select className={fieldClassName}>
-              <option>{t.allSemesters}</option>
+            <select
+              className={fieldClassName}
+              value={selectedSemester}
+              onChange={(event) => setSelectedSemester(event.target.value)}
+            >
+              <option value="">{t.allSemesters}</option>
+
               {semesters.map((semester) => (
-                <option key={semester}>{semester}</option>
+                <option key={semester} value={semester}>
+                  {semester}
+                </option>
               ))}
             </select>
 
-            <select className={fieldClassName}>
-              <option>{t.allTopics}</option>
+            <select
+              className={fieldClassName}
+              value={selectedTopic}
+              onChange={(event) => setSelectedTopic(event.target.value)}
+            >
+              <option value="">{t.allTopics}</option>
+
               {tags.map((tag) => (
-                <option key={tag}>{formatSourceType(tag)}</option>
+                <option key={tag} value={tag}>
+                  {formatSourceType(tag)}
+                </option>
               ))}
             </select>
           </div>
@@ -286,7 +338,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
         </div>
 
         <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {approvedArticles.map((article) => (
+          {filteredArticles.map((article) => (
             <Link
               key={article.id}
               href={`/articles/${article.slug}`}
