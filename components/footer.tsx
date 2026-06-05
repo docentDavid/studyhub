@@ -32,7 +32,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="mt-24 border-t border-[var(--border)] bg-[var(--surface)]">
+    <footer className="mt-4 border-t border-[var(--border)] bg-[var(--surface)]">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="text-center md:text-left">
