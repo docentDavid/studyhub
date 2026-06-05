@@ -27,6 +27,13 @@ function getSourceTypeLabel(sourceType: string) {
   }
 }
 
+function formatSourceType(sourceType: string) {
+  return sourceType
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 const copy = {
   en: {
     title: "Inspiration, guides and resources for students.",
@@ -103,7 +110,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
     () =>
       Array.from(
         new Set(approvedArticles.map((article) => article.sourceType)),
-      ),
+      ).sort((a, b) => a.localeCompare(b)),
     [approvedArticles],
   );
 
@@ -111,13 +118,15 @@ export function HomePageClient({ articles }: HomePageClientProps) {
     () =>
       Array.from(
         new Set(approvedArticles.flatMap((article) => article.semesters)),
-      ),
+      ).sort((a, b) => a.localeCompare(b)),
     [approvedArticles],
   );
 
   const tags = useMemo(
     () =>
-      Array.from(new Set(approvedArticles.flatMap((article) => article.tags))),
+      Array.from(
+        new Set(approvedArticles.flatMap((article) => article.tags)),
+      ).sort((a, b) => a.localeCompare(b)),
     [approvedArticles],
   );
 
@@ -168,7 +177,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             <select className={fieldClassName}>
               <option>{t.allContentTypes}</option>
               {sourceTypes.map((type) => (
-                <option key={type}>{type}</option>
+                <option key={type}>{formatSourceType(type)}</option>
               ))}
             </select>
 
