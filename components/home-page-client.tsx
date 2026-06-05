@@ -34,9 +34,9 @@ const copy = {
       "Useful articles, tutorials and curated resources to support your studies, develop new skills and stay inspired throughout your learning journey.",
     submitResource: "Submit Resource",
     search: "Search articles...",
-    allUnits: "All units",
+    allContentTypes: "All content types",
     allSemesters: "All semesters",
-    allTags: "All tags",
+    allTopics: "All topics",
     latestResources: "Latest resources",
     latestDescription: "Recently added articles, guides and useful sources.",
     allResources: "All resources",
@@ -50,9 +50,9 @@ const copy = {
       "Nuttige artikelen, tutorials en geselecteerde bronnen om je studie te ondersteunen, nieuwe vaardigheden te ontwikkelen en geïnspireerd te blijven tijdens je leerproces.",
     submitResource: "Bron insturen",
     search: "Zoek artikelen...",
-    allUnits: "Alle units",
+    allContentTypes: "Alle content types",
     allSemesters: "Alle semesters",
-    allTags: "Alle tags",
+    allTopics: "Alle onderwerpen",
     latestResources: "Nieuwste bronnen",
     latestDescription:
       "Recent toegevoegde artikelen, gidsen en nuttige bronnen.",
@@ -99,9 +99,11 @@ export function HomePageClient({ articles }: HomePageClientProps) {
     )
     .slice(0, 4);
 
-  const units = useMemo(
+  const sourceTypes = useMemo(
     () =>
-      Array.from(new Set(approvedArticles.flatMap((article) => article.units))),
+      Array.from(
+        new Set(approvedArticles.map((article) => article.sourceType)),
+      ),
     [approvedArticles],
   );
 
@@ -164,9 +166,9 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             <input className={fieldClassName} placeholder={t.search} />
 
             <select className={fieldClassName}>
-              <option>{t.allUnits}</option>
-              {units.map((unit) => (
-                <option key={unit}>{unit}</option>
+              <option>{t.allContentTypes}</option>
+              {sourceTypes.map((type) => (
+                <option key={type}>{type}</option>
               ))}
             </select>
 
@@ -178,7 +180,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             </select>
 
             <select className={fieldClassName}>
-              <option>{t.allTags}</option>
+              <option>{t.allTopics}</option>
               {tags.map((tag) => (
                 <option key={tag}>{tag}</option>
               ))}
