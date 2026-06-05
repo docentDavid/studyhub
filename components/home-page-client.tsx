@@ -333,7 +333,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
           </h2>
 
           <p className="mt-1 text-sm font-semibold text-[var(--muted)]">
-            {t.showingResources(approvedArticles.length)}
+            {t.showingResources(filteredArticles.length)}
           </p>
         </div>
 
