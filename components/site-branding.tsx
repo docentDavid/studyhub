@@ -43,7 +43,7 @@ export function SiteBranding() {
       <p className="text-sm text-[var(--muted)]">
         {language === "en"
           ? "Student Information Portal"
-          : "Studenten Informatieportaal"}
+          : "Student Informatieportaal"}
       </p>
     </Link>
   );
