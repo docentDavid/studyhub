@@ -208,7 +208,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors">
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <header className="mb-6 rounded-3xl bg-[var(--brand-dark)] p-6 text-white shadow-xl shadow-purple-950/20 sm:p-8">
+        <header className="mb-6 rounded-3xl bg-[var(--brand-dark)] p-6 text-white shadow-md shadow-purple-950/20 sm:p-8">
           <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">
             {t.title}
           </h1>
@@ -225,7 +225,55 @@ export function HomePageClient({ articles }: HomePageClientProps) {
           </Link>
         </header>
 
-        <section className="mb-10">
+        <section className="mt-8">
+          <div className="mb-5">
+            <h2 className="text-2xl font-black tracking-tight">
+              {t.latestResources}
+            </h2>
+
+            <p className="mt-1 text-sm text-[var(--muted)]">
+              {t.latestDescription}
+            </p>
+          </div>
+
+          <div className="flex snap-x gap-5 overflow-x-auto pb-2 md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-4">
+            {latestArticles.map((article) => (
+              <Link
+                key={article.id}
+                href={`/articles/${article.slug}`}
+                className={`${cardClassName} min-w-[85%] snap-start md:min-w-0`}
+              >
+                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
+                  {getSourceTypeLabel(article.sourceType, language)}
+                </p>
+
+                <h3 className="text-lg font-black tracking-tight">
+                  {article.title[language]}
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
+                  {article.summary[language]}
+                </p>
+
+                <p className="mt-5 text-xs font-semibold text-[var(--muted)]">
+                  {t.updated} {article.updatedAt}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* <div className="mb-5 border-t border-[var(--border)] pt-8">
+          <h2 className="text-2xl font-black tracking-tight">
+            {t.allResources}
+          </h2>
+
+          <p className="mt-1 text-sm font-semibold text-[var(--muted)]">
+            {t.showingResources(filteredArticles.length)}
+          </p>
+        </div> */}
+
+        <section className="mt-4 border-t border-[var(--border)] pt-8">
           <div className="mb-4">
             <h2 className="text-2xl font-black tracking-tight">
               {language === "en" ? "Find resources" : "Zoek bronnen"}
@@ -287,55 +335,12 @@ export function HomePageClient({ articles }: HomePageClientProps) {
               ))}
             </select>
           </div>
-        </section>
-
-        <section className="mb-12">
-          <div className="mb-5">
-            <h2 className="text-2xl font-black tracking-tight">
-              {t.latestResources}
-            </h2>
-
-            <p className="mt-1 text-sm text-[var(--muted)]">
-              {t.latestDescription}
+          <div className="my-4">
+            <p className="mt-1 text-sm font-semibold text-[var(--muted)]">
+              {t.showingResources(filteredArticles.length)}
             </p>
           </div>
-
-          <div className="flex snap-x gap-5 overflow-x-auto pb-4 md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-4">
-            {latestArticles.map((article) => (
-              <Link
-                key={article.id}
-                href={`/articles/${article.slug}`}
-                className={`${cardClassName} min-w-[85%] snap-start md:min-w-0`}
-              >
-                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
-                  {getSourceTypeLabel(article.sourceType, language)}
-                </p>
-
-                <h3 className="text-lg font-black tracking-tight">
-                  {article.title[language]}
-                </h3>
-
-                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
-                  {article.summary[language]}
-                </p>
-
-                <p className="mt-5 text-xs font-semibold text-[var(--muted)]">
-                  {t.updated} {article.updatedAt}
-                </p>
-              </Link>
-            ))}
-          </div>
         </section>
-
-        <div className="mb-5 border-t border-[var(--border)] pt-8">
-          <h2 className="text-2xl font-black tracking-tight">
-            {t.allResources}
-          </h2>
-
-          <p className="mt-1 text-sm font-semibold text-[var(--muted)]">
-            {t.showingResources(filteredArticles.length)}
-          </p>
-        </div>
 
         <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {filteredArticles.map((article) => (

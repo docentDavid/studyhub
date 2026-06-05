@@ -31,8 +31,8 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="mt-24 border-t border-[var(--border)]">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <footer className="mt-2 border-t border-[var(--border)]">
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <div>
             <p className="font-semibold text-[var(--foreground)]">StudyHub</p>
