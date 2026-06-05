@@ -40,7 +40,7 @@ function getSourceTypeLabel(sourceType: string, language: Language) {
   );
 }
 
-function formatSourceType(sourceType: string) {
+function formatTopic(sourceType: string) {
   return sourceType
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -263,20 +263,10 @@ export function HomePageClient({ articles }: HomePageClientProps) {
           </div>
         </section>
 
-        {/* <div className="mb-5 border-t border-[var(--border)] pt-8">
-          <h2 className="text-2xl font-black tracking-tight">
-            {t.allResources}
-          </h2>
-
-          <p className="mt-1 text-sm font-semibold text-[var(--muted)]">
-            {t.showingResources(filteredArticles.length)}
-          </p>
-        </div> */}
-
-        <section className="mt-4 border-t border-[var(--border)] pt-8">
+        <section className="mt-10 border-t border-[var(--border)] pt-8">
           <div className="mb-4">
             <h2 className="text-2xl font-black tracking-tight">
-              {language === "en" ? "Find resources" : "Zoek bronnen"}
+              {language === "en" ? "Filter resources" : "Filter bronnen"}
             </h2>
 
             <p className="mt-1 text-sm text-[var(--muted)]">
@@ -330,12 +320,12 @@ export function HomePageClient({ articles }: HomePageClientProps) {
 
               {tags.map((tag) => (
                 <option key={tag} value={tag}>
-                  {formatSourceType(tag)}
+                  {formatTopic(tag)}
                 </option>
               ))}
             </select>
           </div>
-          <div className="my-4">
+          <div className="mt-4 mb-5">
             <p className="mt-1 text-sm font-semibold text-[var(--muted)]">
               {t.showingResources(filteredArticles.length)}
             </p>
