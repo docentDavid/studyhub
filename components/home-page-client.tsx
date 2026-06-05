@@ -10,28 +10,68 @@ type HomePageClientProps = {
   articles: Article[];
 };
 
-function getSourceTypeLabel(sourceType: string) {
-  switch (sourceType) {
-    case "guide":
-      return "📘 Guide";
-    case "article":
-      return "📰 Article";
-    case "video":
-      return "🎥 Video";
-    case "external-source":
-      return "🔗 External source";
-    case "student-source":
-      return "🎓 Student source";
-    default:
-      return "Resource";
-  }
+function getSourceTypeLabel(sourceType: string, language: Language) {
+  const labels = {
+    guide: {
+      en: "📘 Guide",
+      nl: "📘 Handleiding",
+    },
+    article: {
+      en: "📰 Article",
+      nl: "📰 Artikel",
+    },
+    video: {
+      en: "🎥 Video",
+      nl: "🎥 Video",
+    },
+    "external-source": {
+      en: "🔗 External Source",
+      nl: "🔗 Externe Bron",
+    },
+    "student-source": {
+      en: "🎓 Student Source",
+      nl: "🎓 Studentenbron",
+    },
+  };
+
+  return (
+    labels[sourceType as keyof typeof labels]?.[language] ??
+    (language === "en" ? "Resource" : "Bron")
+  );
 }
 
-function formatSourceType(sourceType: string) {
-  return sourceType
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+// function formatSourceType(sourceType: string) {
+//   return sourceType
+//     .split("-")
+//     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+//     .join(" ");
+// }
+
+function getSourceTypeName(sourceType: string, language: Language) {
+  const names = {
+    article: {
+      en: "Article",
+      nl: "Artikel",
+    },
+    guide: {
+      en: "Guide",
+      nl: "Handleiding",
+    },
+    video: {
+      en: "Video",
+      nl: "Video",
+    },
+    "external-source": {
+      en: "External Source",
+      nl: "Externe Bron",
+    },
+    "student-source": {
+      en: "Student Source",
+      nl: "Studentenbron",
+    },
+  };
+
+  return names[sourceType as keyof typeof names]?.[language] ?? sourceType;
 }
 
 const copy = {
@@ -177,7 +217,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             <select className={fieldClassName}>
               <option>{t.allContentTypes}</option>
               {sourceTypes.map((type) => (
-                <option key={type}>{formatSourceType(type)}</option>
+                <option key={type}>{getSourceTypeName(type, language)}</option>
               ))}
             </select>
 
@@ -216,7 +256,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                 className={`${cardClassName} min-w-[85%] snap-start md:min-w-0`}
               >
                 <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
-                  {getSourceTypeLabel(article.sourceType)}
+                  {getSourceTypeLabel(article.sourceType, language)}
                 </p>
 
                 <h3 className="text-lg font-black tracking-tight">
@@ -273,7 +313,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
               </div>
 
               <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
-                {getSourceTypeLabel(article.sourceType)}
+                {getSourceTypeLabel(article.sourceType, language)}
               </p>
 
               <h2 className="text-xl font-black tracking-tight">
