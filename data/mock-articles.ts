@@ -104,7 +104,7 @@ export const mockArticles: Article[] = [
       nl: "# Next.js App Router\n\nDe App Router structureert pagina's met mappen, layouts en server components.",
     },
     units: ["FED", "PROG"],
-    semesters: ["Semester 3"],
+    semesters: ["Semester 5"],
     tags: ["nextjs", "react", "routing"],
     authorName: "Robin",
     sourceType: "guide",

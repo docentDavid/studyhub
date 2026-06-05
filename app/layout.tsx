@@ -11,11 +11,19 @@ const openSans = Open_Sans({
   fallback: ["Roboto", "Lato", "sans-serif"],
 });
 
+export const viewport = {
+  themeColor: "#663399",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("http://localhost:3000"),
   title: {
     default: "StudyHub",
     template: "%s | StudyHub",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/icons/apple-touch-icon.png",
   },
   description:
     "A responsive student information portal for guides, resources and student contributions.",

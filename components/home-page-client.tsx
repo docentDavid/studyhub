@@ -40,12 +40,12 @@ function getSourceTypeLabel(sourceType: string, language: Language) {
   );
 }
 
-// function formatSourceType(sourceType: string) {
-//   return sourceType
-//     .split("-")
-//     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-//     .join(" ");
-// }
+function formatSourceType(sourceType: string) {
+  return sourceType
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
 
 function getSourceTypeName(sourceType: string, language: Language) {
   const names = {
@@ -231,7 +231,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             <select className={fieldClassName}>
               <option>{t.allTopics}</option>
               {tags.map((tag) => (
-                <option key={tag}>{tag}</option>
+                <option key={tag}>{formatSourceType(tag)}</option>
               ))}
             </select>
           </div>
