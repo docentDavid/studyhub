@@ -7,6 +7,7 @@ type Language = "en" | "nl";
 
 export function Footer() {
   const [language, setLanguage] = useState<Language>("en");
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language") as Language | null;
@@ -31,42 +32,55 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="mt-2 border-t border-[var(--border)]">
-      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
-          <div>
-            <p className="font-semibold text-[var(--foreground)]">StudyHub</p>
-
-            <p className="text-sm text-[var(--muted)]">
-              {language === "en" ? "Version 0.1.0" : "Versie 0.1.0"}
+    <footer className="mt-24 border-t border-[var(--border)] bg-[var(--surface)]">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="text-center md:text-left">
+            <p className="text-sm font-black uppercase tracking-wide text-[var(--brand)]">
+              StudyHub
+            </p>
+            <p className="mt-1 text-sm text-[var(--muted)]">
+              {language === "en"
+                ? "Student information portal"
+                : "Studenten informatieportaal"}
             </p>
           </div>
 
           <nav
             aria-label="Footer navigation"
-            className="flex flex-wrap justify-center gap-x-6 gap-y-3"
+            className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-semibold md:justify-end"
           >
             <Link
               href="/"
-              className="text-sm text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+              className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
             >
               {language === "en" ? "Home" : "Start"}
             </Link>
 
             <Link
               href="/submit"
-              className="text-sm text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+              className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
             >
               {language === "en" ? "Contribute" : "Bijdragen"}
             </Link>
 
             <Link
               href="#"
-              className="text-sm text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+              className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
             >
               Privacy
             </Link>
           </nav>
+        </div>
+
+        <div className="mt-4 text-center text-xs text-[var(--muted)] md:flex md:items-center md:justify-between md:text-left">
+          <p>StudyHub v0.1.0</p>
+          <p className="mt-2 md:mt-0">
+            © {currentYear} StudyHub.{" "}
+            {language === "en"
+              ? "All rights reserved."
+              : "Alle rechten voorbehouden."}
+          </p>
         </div>
       </div>
     </footer>

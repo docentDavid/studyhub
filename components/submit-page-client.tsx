@@ -7,7 +7,7 @@ type Language = "en" | "nl";
 
 const copy = {
   en: {
-    back: "Back to portal",
+    back: "Back to homepage",
     label: "Contribute",
     title: "Submit a useful source",
     intro:
@@ -25,7 +25,7 @@ const copy = {
     cancel: "Cancel",
   },
   nl: {
-    back: "Terug naar portal",
+    back: "Terug naar startpagina",
     label: "Bijdragen",
     title: "Stuur een nuttige bron in",
     intro:
