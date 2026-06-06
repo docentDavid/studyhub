@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: ArticlePageProps) {
   }
 
   return {
-    title: `${article.title} | StudyHub`,
-    description: article.summary,
+    title: article.title.en,
+    description: article.summary.en,
   };
 }
 
