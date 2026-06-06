@@ -9,11 +9,13 @@ type Language = "en" | "nl";
 type ArticleAsideClientProps = {
   article: Article;
   relatedArticles: Article[];
+  onHide: () => void;
 };
 
 export function ArticleAsideClient({
   article,
   relatedArticles,
+  onHide,
 }: ArticleAsideClientProps) {
   const [language, setLanguage] = useState<Language>("en");
   const [isVisible, setIsVisible] = useState(true);
@@ -69,10 +71,10 @@ export function ArticleAsideClient({
     <aside className="space-y-5 lg:sticky lg:top-8 lg:self-start">
       <button
         type="button"
-        onClick={() => setIsVisible((value) => !value)}
-        className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm font-bold text-[var(--brand)] transition hover:bg-[var(--brand-soft)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+        onClick={onHide}
+        className="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--muted)] transition hover:text-[var(--brand)]"
       >
-        {isVisible ? t.hide : t.show}
+        ← {t.hide}
       </button>
 
       {isVisible && (

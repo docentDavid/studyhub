@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { mockArticles } from "@/data/mock-articles";
 import { ArticlePageClient } from "@/components/article-page-client";
-import { ArticleAsideClient } from "@/components/article-aside-client";
+import { ArticleReadingLayoutClient } from "@/components/article-reading-layout-client";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -49,18 +49,13 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       let score = 0;
 
       score += item.tags.filter((tag) => article.tags.includes(tag)).length * 3;
-
       score +=
         item.units.filter((unit) => article.units.includes(unit)).length * 2;
-
       score += item.semesters.filter((semester) =>
         article.semesters.includes(semester),
       ).length;
 
-      return {
-        ...item,
-        score,
-      };
+      return { ...item, score };
     })
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score)
@@ -89,7 +84,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         </div>
       </header>
 
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_280px] lg:px-8">
+      <ArticleReadingLayoutClient
+        article={article}
+        relatedArticles={relatedArticles}
+      >
         <article className={`${panelClassName} p-6 md:p-10`}>
           <div className="mb-5 flex flex-wrap gap-2">
             {article.units.map((unit) => (
@@ -124,12 +122,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             ))}
           </div>
         </article>
-
-        <ArticleAsideClient
-          article={article}
-          relatedArticles={relatedArticles}
-        />
-      </div>
+      </ArticleReadingLayoutClient>
     </main>
   );
 }
