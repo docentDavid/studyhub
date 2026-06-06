@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { mockArticles } from "@/data/mock-articles";
-import { MarkdownContent } from "@/components/markdown-content";
+import { ArticlePageClient } from "@/components/article-page-client";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -43,13 +43,26 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   const relatedArticles = mockArticles
-    .filter(
-      (item) =>
-        item.id !== article.id &&
-        item.status === "approved" &&
-        (item.units.some((unit) => article.units.includes(unit)) ||
-          item.tags.some((tag) => article.tags.includes(tag))),
-    )
+    .filter((item) => item.id !== article.id && item.status === "approved")
+    .map((item) => {
+      let score = 0;
+
+      score += item.tags.filter((tag) => article.tags.includes(tag)).length * 3;
+
+      score +=
+        item.units.filter((unit) => article.units.includes(unit)).length * 2;
+
+      score += item.semesters.filter((semester) =>
+        article.semesters.includes(semester),
+      ).length;
+
+      return {
+        ...item,
+        score,
+      };
+    })
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
     .slice(0, 3);
 
   const panelClassName =
@@ -97,13 +110,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             ))}
           </div>
 
-          <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-6xl">
-            {article.title.en}
-          </h1>
-
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-[var(--muted)]">
-            {article.summary.en}
-          </p>
+          <ArticlePageClient article={article} />
 
           <div className="mt-6 flex flex-wrap gap-2">
             {article.tags.map((tag) => (
@@ -114,10 +121,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 #{tag}
               </span>
             ))}
-          </div>
-
-          <div className="mt-10 rounded-3xl bg-[var(--surface-soft)] p-6 md:p-8">
-            <MarkdownContent content={article.contentMarkdown.en} />
           </div>
         </article>
 
