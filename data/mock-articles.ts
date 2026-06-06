@@ -589,8 +589,74 @@ export const mockArticles: Article[] = [
       nl: "Verbeter laadsnelheid met afbeeldingen, caching en bewust gebruik van JavaScript.",
     },
     contentMarkdown: {
-      en: "# Frontend Performance Basics\n\nPerformance improves user experience and accessibility.",
-      nl: "# Basis van Frontend Performance\n\nPerformance verbetert gebruikerservaring en toegankelijkheid.",
+      en: `
+# Frontend Performance Basics
+
+Performance improves user experience, accessibility and conversion.
+
+## Why performance matters
+
+A fast website feels more reliable and helps students access resources quickly.
+
+### Key techniques
+
+- Optimize images
+- Reduce unnecessary JavaScript
+- Use caching
+- Avoid layout shifts
+- Test on real devices
+
+## Example checklist
+
+\`\`\`ts
+const performanceChecklist = [
+  "Optimize images",
+  "Minimize JavaScript",
+  "Use semantic HTML",
+  "Check Lighthouse",
+];
+\`\`\`
+
+## Useful reminder
+
+**Performance is a user experience issue**, not only a technical issue.
+
+> Start simple, measure often, and improve step by step.
+`,
+      nl: `
+# Basis van Frontend Performance
+
+Performance verbetert gebruikerservaring, toegankelijkheid en conversie.
+
+## Waarom performance belangrijk is
+
+Een snelle website voelt betrouwbaarder en helpt studenten om bronnen snel te openen.
+
+### Belangrijke technieken
+
+- Optimaliseer afbeeldingen
+- Verminder onnodige JavaScript
+- Gebruik caching
+- Voorkom layout shifts
+- Test op echte apparaten
+
+## Voorbeeld checklist
+
+\`\`\`ts
+const performanceChecklist = [
+  "Afbeeldingen optimaliseren",
+  "JavaScript beperken",
+  "Semantische HTML gebruiken",
+  "Lighthouse controleren",
+];
+\`\`\`
+
+## Handige reminder
+
+**Performance is een UX-probleem**, niet alleen een technisch probleem.
+
+> Begin eenvoudig, meet regelmatig en verbeter stap voor stap.
+`,
     },
     units: ["FED"],
     semesters: ["Semester 4"],

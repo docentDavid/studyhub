@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { mockArticles } from "@/data/mock-articles";
+import { MarkdownContent } from "@/components/markdown-content";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -116,7 +117,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </div>
 
           <div className="mt-10 whitespace-pre-wrap rounded-3xl bg-[var(--surface-soft)] p-6 leading-8 text-[var(--foreground)]">
-            {article.contentMarkdown.en}
+            <MarkdownContent content={article.contentMarkdown.en} />
           </div>
         </article>
 
