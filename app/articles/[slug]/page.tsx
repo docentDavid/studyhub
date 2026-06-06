@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { mockArticles } from "@/data/mock-articles";
 import { ArticlePageClient } from "@/components/article-page-client";
+import { ArticleAsideClient } from "@/components/article-aside-client";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -124,50 +125,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </div>
         </article>
 
-        <aside className="space-y-5 lg:sticky lg:top-8 lg:self-start">
-          <section className={`${panelClassName} p-5`}>
-            <h2 className="font-black">Article info</h2>
-
-            <dl className="mt-4 space-y-3 text-sm text-[var(--muted)]">
-              <div>
-                <dt className="font-bold text-[var(--foreground)]">Author</dt>
-                <dd>{article.authorName}</dd>
-              </div>
-
-              <div>
-                <dt className="font-bold text-[var(--foreground)]">Type</dt>
-                <dd>{article.sourceType}</dd>
-              </div>
-
-              <div>
-                <dt className="font-bold text-[var(--foreground)]">Updated</dt>
-                <dd>{article.updatedAt}</dd>
-              </div>
-            </dl>
-          </section>
-
-          <section className={`${panelClassName} p-5`}>
-            <h2 className="font-black">Related articles</h2>
-
-            <div className="mt-4 space-y-3">
-              {relatedArticles.length > 0 ? (
-                relatedArticles.map((item) => (
-                  <Link
-                    key={item.id}
-                    href={`/articles/${item.slug}`}
-                    className="block rounded-2xl bg-[var(--brand-soft)] p-3 text-sm font-bold text-[var(--brand)] transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
-                  >
-                    {item.title.en}
-                  </Link>
-                ))
-              ) : (
-                <p className="text-sm text-[var(--muted)]">
-                  No related articles yet.
-                </p>
-              )}
-            </div>
-          </section>
-        </aside>
+        <ArticleAsideClient
+          article={article}
+          relatedArticles={relatedArticles}
+        />
       </div>
     </main>
   );
