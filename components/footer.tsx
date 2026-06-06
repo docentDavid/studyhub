@@ -74,7 +74,10 @@ export function Footer() {
         </div>
 
         <div className="mt-4 text-center text-xs text-[var(--muted)] md:flex md:items-center md:justify-between md:text-left">
-          <p>StudyHub {language === "en" ? "version" : "versie"} 0.2.1</p>
+          <p>
+            StudyHub {language === "en" ? "version" : "versie"} 0.2.1 -{" "}
+            {language === "en" ? "June 2026" : "Juni 2026"}
+          </p>
           <p className="mt-2 md:mt-0">
             © {currentYear} StudyHub.{" "}
             {language === "en"

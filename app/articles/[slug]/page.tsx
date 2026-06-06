@@ -116,7 +116,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             ))}
           </div>
 
-          <div className="mt-10 whitespace-pre-wrap rounded-3xl bg-[var(--surface-soft)] p-6 leading-8 text-[var(--foreground)]">
+          <div className="mt-10 rounded-3xl bg-[var(--surface-soft)] p-6 md:p-8">
             <MarkdownContent content={article.contentMarkdown.en} />
           </div>
         </article>
