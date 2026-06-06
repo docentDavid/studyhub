@@ -332,62 +332,91 @@ export function HomePageClient({ articles }: HomePageClientProps) {
           </div>
         </section>
 
-        <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {filteredArticles.map((article) => (
-            <Link
-              key={article.id}
-              href={`/articles/${article.slug}`}
-              className={cardClassName}
+        {filteredArticles.length === 0 ? (
+          <section className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-8 text-center shadow-sm">
+            <h2 className="text-2xl font-black tracking-tight">
+              {language === "en"
+                ? "No resources found"
+                : "Geen bronnen gevonden"}
+            </h2>
+
+            <p className="mt-3 text-sm text-[var(--muted)]">
+              {language === "en"
+                ? "Try changing your search term or removing one of the filters."
+                : "Probeer je zoekterm aan te passen of een filter te verwijderen."}
+            </p>
+
+            <button
+              type="button"
+              onClick={() => {
+                setSearchQuery("");
+                setSelectedType("");
+                setSelectedSemester("");
+                setSelectedTopic("");
+              }}
+              className="mt-6 rounded-2xl bg-[var(--brand-dark)] px-5 py-3 text-sm font-bold text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
             >
-              <div className="mb-4 flex flex-wrap gap-2">
-                {article.units.map((unit) => (
-                  <span
-                    key={unit}
-                    className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-bold text-[var(--brand)]"
-                  >
-                    {unit}
-                  </span>
-                ))}
+              {language === "en" ? "Clear filters" : "Filters wissen"}
+            </button>
+          </section>
+        ) : (
+          <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {filteredArticles.map((article) => (
+              <Link
+                key={article.id}
+                href={`/articles/${article.slug}`}
+                className={cardClassName}
+              >
+                <div className="mb-4 flex flex-wrap gap-2">
+                  {article.units.map((unit) => (
+                    <span
+                      key={unit}
+                      className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-bold text-[var(--brand)]"
+                    >
+                      {unit}
+                    </span>
+                  ))}
 
-                {article.semesters.map((semester) => (
-                  <span
-                    key={semester}
-                    className="rounded-full border border-[var(--border)] bg-[var(--surface-soft)] px-3 py-1 text-xs font-bold text-[var(--muted)]"
-                  >
-                    {semester}
-                  </span>
-                ))}
-              </div>
+                  {article.semesters.map((semester) => (
+                    <span
+                      key={semester}
+                      className="rounded-full border border-[var(--border)] bg-[var(--surface-soft)] px-3 py-1 text-xs font-bold text-[var(--muted)]"
+                    >
+                      {semester}
+                    </span>
+                  ))}
+                </div>
 
-              <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
-                {getSourceTypeLabel(article.sourceType, language)}
-              </p>
+                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
+                  {getSourceTypeLabel(article.sourceType, language)}
+                </p>
 
-              <h2 className="text-xl font-black tracking-tight">
-                {article.title[language]}
-              </h2>
+                <h2 className="text-xl font-black tracking-tight">
+                  {article.title[language]}
+                </h2>
 
-              <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
-                {article.summary[language]}
-              </p>
+                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
+                  {article.summary[language]}
+                </p>
 
-              <div className="mt-5 flex flex-wrap gap-2">
-                {article.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-semibold text-[var(--brand)]"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {article.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-semibold text-[var(--brand)]"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
 
-              <p className="mt-5 text-xs font-semibold text-[var(--muted)]">
-                {t.by} {article.authorName}
-              </p>
-            </Link>
-          ))}
-        </section>
+                <p className="mt-5 text-xs font-semibold text-[var(--muted)]">
+                  {t.by} {article.authorName}
+                </p>
+              </Link>
+            ))}
+          </section>
+        )}
       </section>
     </main>
   );
