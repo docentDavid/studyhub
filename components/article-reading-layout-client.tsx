@@ -27,17 +27,19 @@ export function ArticleReadingLayoutClient({
     >
       {children}
 
-      {showAside ? (
+      <div className="lg:block">
         <ArticleAsideClient
           article={article}
           relatedArticles={relatedArticles}
           onHide={() => setShowAside(false)}
         />
-      ) : (
+      </div>
+
+      {!showAside && (
         <button
           type="button"
           onClick={() => setShowAside(true)}
-          className="fixed bottom-6 right-6 z-50 rounded-full bg-[var(--brand-dark)] px-5 py-3 text-sm font-bold text-white shadow-lg transition hover:opacity-90"
+          className="fixed bottom-6 right-6 z-50 hidden rounded-full bg-[var(--brand-dark)] px-5 py-3 text-sm font-bold text-white shadow-lg transition hover:opacity-90 lg:block"
         >
           Info
         </button>

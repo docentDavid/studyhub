@@ -72,7 +72,7 @@ export function ArticleAsideClient({
       <button
         type="button"
         onClick={onHide}
-        className="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--muted)] transition hover:text-[var(--brand)]"
+        className="mb-4 hidden lg:inline-flex items-center gap-2 text-sm font-semibold text-[var(--muted)] transition hover:text-[var(--brand)]"
       >
         ← {t.hide}
       </button>
@@ -104,7 +104,7 @@ export function ArticleAsideClient({
             </dl>
           </section>
 
-          <section className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm">
+          <section className="mt-8 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm">
             <h2 className="font-black">{t.related}</h2>
 
             <div className="mt-4 space-y-3">
