@@ -17,16 +17,19 @@ export function ArticleAsideClient({
   relatedArticles,
   onHide,
 }: ArticleAsideClientProps) {
-  const [language, setLanguage] = useState<Language>("en");
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as Language | null;
-
-    if (savedLanguage === "en" || savedLanguage === "nl") {
-      setLanguage(savedLanguage);
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === "undefined") {
+      return "en";
     }
 
+    const savedLanguage = localStorage.getItem("language");
+
+    return savedLanguage === "en" || savedLanguage === "nl"
+      ? savedLanguage
+      : "en";
+  });
+
+  useEffect(() => {
     function handleLanguageChange(event: Event) {
       const customEvent = event as CustomEvent<Language>;
 
@@ -77,54 +80,46 @@ export function ArticleAsideClient({
         ← {t.hide}
       </button>
 
-      {isVisible && (
-        <>
-          <section className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm">
-            <h2 className="font-black">{t.articleInfo}</h2>
+      <section className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm">
+        <h2 className="font-black">{t.articleInfo}</h2>
 
-            <dl className="mt-4 space-y-3 text-sm text-[var(--muted)]">
-              <div>
-                <dt className="font-bold text-[var(--foreground)]">
-                  {t.author}
-                </dt>
-                <dd>{article.authorName}</dd>
-              </div>
+        <dl className="mt-4 space-y-3 text-sm text-[var(--muted)]">
+          <div>
+            <dt className="font-bold text-[var(--foreground)]">{t.author}</dt>
+            <dd>{article.authorName}</dd>
+          </div>
 
-              <div>
-                <dt className="font-bold text-[var(--foreground)]">{t.type}</dt>
-                <dd>{article.sourceType}</dd>
-              </div>
+          <div>
+            <dt className="font-bold text-[var(--foreground)]">{t.type}</dt>
+            <dd>{article.sourceType}</dd>
+          </div>
 
-              <div>
-                <dt className="font-bold text-[var(--foreground)]">
-                  {t.updated}
-                </dt>
-                <dd>{article.updatedAt}</dd>
-              </div>
-            </dl>
-          </section>
+          <div>
+            <dt className="font-bold text-[var(--foreground)]">{t.updated}</dt>
+            <dd>{article.updatedAt}</dd>
+          </div>
+        </dl>
+      </section>
 
-          <section className="mt-8 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm">
-            <h2 className="font-black">{t.related}</h2>
+      <section className="mt-8 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm">
+        <h2 className="font-black">{t.related}</h2>
 
-            <div className="mt-4 space-y-3">
-              {relatedArticles.length > 0 ? (
-                relatedArticles.map((item) => (
-                  <Link
-                    key={item.id}
-                    href={`/articles/${item.slug}`}
-                    className="block rounded-2xl bg-[var(--brand-soft)] p-3 text-sm font-bold text-[var(--brand)] transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
-                  >
-                    {item.title[language]}
-                  </Link>
-                ))
-              ) : (
-                <p className="text-sm text-[var(--muted)]">{t.noRelated}</p>
-              )}
-            </div>
-          </section>
-        </>
-      )}
+        <div className="mt-4 space-y-3">
+          {relatedArticles.length > 0 ? (
+            relatedArticles.map((item) => (
+              <Link
+                key={item.id}
+                href={`/articles/${item.slug}`}
+                className="block rounded-2xl bg-[var(--brand-soft)] p-3 text-sm font-bold text-[var(--brand)] transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+              >
+                {item.title[language]}
+              </Link>
+            ))
+          ) : (
+            <p className="text-sm text-[var(--muted)]">{t.noRelated}</p>
+          )}
+        </div>
+      </section>
     </aside>
   );
 }

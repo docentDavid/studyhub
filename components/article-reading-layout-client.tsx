@@ -4,8 +4,6 @@ import { useState } from "react";
 import { Article } from "@/types/content";
 import { ArticleAsideClient } from "@/components/article-aside-client";
 
-type Language = "en" | "nl";
-
 type Props = {
   article: Article;
   relatedArticles: Article[];

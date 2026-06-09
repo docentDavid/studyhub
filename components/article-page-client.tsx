@@ -11,15 +11,19 @@ type ArticlePageClientProps = {
 };
 
 export function ArticlePageClient({ article }: ArticlePageClientProps) {
-  const [language, setLanguage] = useState<Language>("en");
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as Language | null;
-
-    if (savedLanguage === "en" || savedLanguage === "nl") {
-      setLanguage(savedLanguage);
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === "undefined") {
+      return "en";
     }
 
+    const savedLanguage = localStorage.getItem("language");
+
+    return savedLanguage === "en" || savedLanguage === "nl"
+      ? savedLanguage
+      : "en";
+  });
+
+  useEffect(() => {
     function handleLanguageChange(event: Event) {
       const customEvent = event as CustomEvent<Language>;
 

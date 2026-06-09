@@ -6,16 +6,20 @@ import { useEffect, useState } from "react";
 type Language = "en" | "nl";
 
 export function Footer() {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === "undefined") {
+      return "en";
+    }
+
+    const savedLanguage = localStorage.getItem("language");
+
+    return savedLanguage === "en" || savedLanguage === "nl"
+      ? savedLanguage
+      : "en";
+  });
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as Language | null;
-
-    if (savedLanguage === "en" || savedLanguage === "nl") {
-      setLanguage(savedLanguage);
-    }
-
     function handleLanguageChange(event: Event) {
       const customEvent = event as CustomEvent<Language>;
 
