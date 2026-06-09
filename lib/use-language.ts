@@ -1,8 +1,9 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import type { Language } from "@/lib/i18n/copy";
 
-export type Language = "en" | "nl";
+export type { Language };
 
 function getLanguage(): Language {
   if (typeof window === "undefined") {

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Article, SourceType } from "@/types/content";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getSourceTypeLabel, getSourceTypeName } from "@/lib/source-types";
+import { homePageCopy } from "@/lib/i18n/copy";
 import { useLanguage } from "@/lib/use-language";
 
 type HomePageClientProps = {
@@ -18,46 +19,11 @@ function formatTopic(sourceType: string) {
     .join(" ");
 }
 
-const copy = {
-  en: {
-    title: "Inspiration, guides and resources for students.",
-    description:
-      "Useful articles, tutorials and curated resources to support your studies, develop new skills and stay inspired throughout your learning journey.",
-    submitResource: "Submit Resource",
-    search: "Search articles...",
-    allContentTypes: "All content types",
-    allSemesters: "All semesters",
-    allTopics: "All topics",
-    latestResources: "Latest resources",
-    latestDescription: "Recently added articles, guides and useful sources.",
-    allResources: "All resources",
-    updated: "Updated",
-    by: "By",
-    showingResources: (count: number) => `Showing ${count} resources`,
-  },
-  nl: {
-    title: "Inspiratie, handleidingen en bronnen voor studenten.",
-    description:
-      "Nuttige artikelen, tutorials en geselecteerde bronnen om je studie te ondersteunen, nieuwe vaardigheden te ontwikkelen en geïnspireerd te blijven tijdens je leerproces.",
-    submitResource: "Bron insturen",
-    search: "Zoek artikelen...",
-    allContentTypes: "Alle content types",
-    allSemesters: "Alle semesters",
-    allTopics: "Alle onderwerpen",
-    latestResources: "Nieuwste bronnen",
-    latestDescription:
-      "Recent toegevoegde artikelen, gidsen en nuttige bronnen.",
-    allResources: "Alle bronnen",
-    updated: "Bijgewerkt",
-    by: "Door",
-    showingResources: (count: number) => `${count} bronnen gevonden`,
-  },
-};
-
 export function HomePageClient({ articles }: HomePageClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const language = useLanguage();
+  const homePage = homePageCopy[language];
 
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
   const [selectedType, setSelectedType] = useState(
@@ -138,8 +104,6 @@ export function HomePageClient({ articles }: HomePageClientProps) {
     new Set(approvedArticles.flatMap((article) => article.tags)),
   ).sort((a, b) => a.localeCompare(b));
 
-  const t = copy[language];
-
   const cardClassName =
     "rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/10 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]";
 
@@ -151,29 +115,29 @@ export function HomePageClient({ articles }: HomePageClientProps) {
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <header className="mb-6 rounded-3xl bg-[var(--brand-dark)] p-6 text-white shadow-md shadow-purple-950/20 sm:p-8">
           <h1 className="max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">
-            {t.title}
+            {homePage.title}
           </h1>
 
           <p className="mt-5 max-w-2xl text-base leading-7 text-purple-100 sm:text-lg">
-            {t.description}
+            {homePage.description}
           </p>
 
           <Link
             href="/submit"
             className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[var(--brand-dark)] transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[var(--brand-dark)]"
           >
-            {t.submitResource}
+            {homePage.submitResource}
           </Link>
         </header>
 
         <section className="mt-8">
           <div className="mb-5">
             <h2 className="text-2xl font-black tracking-tight">
-              {t.latestResources}
+              {homePage.latestResources}
             </h2>
 
             <p className="mt-1 text-sm text-[var(--muted)]">
-              {t.latestDescription}
+              {homePage.latestDescription}
             </p>
           </div>
 
@@ -197,7 +161,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                 </p>
 
                 <p className="mt-5 text-xs font-semibold text-[var(--muted)]">
-                  {t.updated} {article.updatedAt}
+                  {homePage.updated} {article.updatedAt}
                 </p>
               </Link>
             ))}
@@ -207,20 +171,18 @@ export function HomePageClient({ articles }: HomePageClientProps) {
         <section className="mt-10 border-t border-[var(--border)] pt-8">
           <div className="mb-4">
             <h2 className="text-2xl font-black tracking-tight">
-              {language === "en" ? "Filter resources" : "Filter bronnen"}
+              {homePage.filterTitle}
             </h2>
 
             <p className="mt-1 text-sm text-[var(--muted)]">
-              {language === "en"
-                ? "Search and filter the resource library."
-                : "Zoek en filter door de bronnenbibliotheek."}
+              {homePage.filterDescription}
             </p>
           </div>
 
           <div className="grid gap-4 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-sm md:grid-cols-4">
             <input
               className={fieldClassName}
-              placeholder={t.search}
+              placeholder={homePage.search}
               value={searchQuery}
               onChange={(event) => {
                 const value = event.target.value;
@@ -240,7 +202,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                 updateFilters({ type: value });
               }}
             >
-              <option value="">{t.allContentTypes}</option>
+              <option value="">{homePage.allContentTypes}</option>
               {sourceTypes.map((type) => (
                 <option key={type} value={type}>
                   {getSourceTypeName(type, language)}
@@ -258,7 +220,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                 updateFilters({ semester: value });
               }}
             >
-              <option value="">{t.allSemesters}</option>
+              <option value="">{homePage.allSemesters}</option>
 
               {semesters.map((semester) => (
                 <option key={semester} value={semester}>
@@ -277,7 +239,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                 updateFilters({ topic: value });
               }}
             >
-              <option value="">{t.allTopics}</option>
+              <option value="">{homePage.allTopics}</option>
 
               {tags.map((tag) => (
                 <option key={tag} value={tag}>
@@ -288,7 +250,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
           </div>
           <div className="mt-4 mb-5">
             <p className="mt-1 text-sm font-semibold text-[var(--muted)]">
-              {t.showingResources(filteredArticles.length)}
+              {homePage.showingResources(filteredArticles.length)}
             </p>
           </div>
 
@@ -364,7 +326,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                 }}
                 className="rounded-full border border-[var(--border)] px-3 py-1 text-xs font-bold text-[var(--muted)] transition hover:bg-[var(--surface-soft)] hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
               >
-                {language === "en" ? "Clear all" : "Alles wissen"}
+                {homePage.clearAll}
               </button>
             </div>
           )}
@@ -373,15 +335,11 @@ export function HomePageClient({ articles }: HomePageClientProps) {
         {filteredArticles.length === 0 ? (
           <section className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-8 text-center shadow-sm">
             <h2 className="text-2xl font-black tracking-tight">
-              {language === "en"
-                ? "No resources found"
-                : "Geen bronnen gevonden"}
+              {homePage.emptyStateTitle}
             </h2>
 
             <p className="mt-3 text-sm text-[var(--muted)]">
-              {language === "en"
-                ? "Try changing your search term or removing one of the filters."
-                : "Probeer je zoekterm aan te passen of een filter te verwijderen."}
+              {homePage.emptyStateDescription}
             </p>
 
             <button
@@ -394,7 +352,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
               }}
               className="mt-6 rounded-2xl bg-[var(--brand-dark)] px-5 py-3 text-sm font-bold text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
             >
-              {language === "en" ? "Clear filters" : "Filters wissen"}
+              {homePage.clearAll}
             </button>
           </section>
         ) : (
@@ -449,7 +407,8 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                 </div>
 
                 <p className="mt-5 text-xs font-semibold text-[var(--muted)]">
-                  {t.by} {article.authorName}
+                  {homePage.updated} {article.updatedAt}
+                  {homePage.by} {article.authorName}
                 </p>
               </Link>
             ))}

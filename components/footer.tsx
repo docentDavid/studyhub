@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { commonCopy, footerCopy } from "@/lib/i18n/copy";
 import { useLanguage } from "@/lib/use-language";
 
 export function Footer() {
   const language = useLanguage();
+  const common = commonCopy[language];
+  const footer = footerCopy[language];
   const currentYear = new Date().getFullYear();
 
   return (
@@ -15,15 +18,14 @@ export function Footer() {
             <p className="text-sm font-black uppercase tracking-wide text-[var(--brand)]">
               StudyHub
             </p>
+
             <p className="mt-1 text-sm text-[var(--muted)]">
-              {language === "en"
-                ? "Student information portal"
-                : "Studenten informatieportaal"}
+              {footer.portalLabel}
             </p>
           </div>
 
           <nav
-            aria-label="Footer navigation"
+            aria-label={footer.navigationLabel}
             className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-semibold md:justify-end"
           >
             <Link
@@ -31,35 +33,32 @@ export function Footer() {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]"
             >
-              {language === "en" ? "Home" : "Start"}
+              {common.home}
             </Link>
 
             <Link
               href="/submit"
               className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]"
             >
-              {language === "en" ? "Contribute" : "Bijdragen"}
+              {common.contribute}
             </Link>
 
             <Link
               href="/privacy"
               className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]"
             >
-              {language === "en" ? "Privacy" : "Privacy"}
+              {common.privacy}
             </Link>
           </nav>
         </div>
 
         <div className="mt-4 text-center text-xs text-[var(--muted)] md:flex md:items-center md:justify-between md:text-left">
           <p>
-            StudyHub {language === "en" ? "version" : "versie"} 0.2.1 -{" "}
-            {language === "en" ? "June 2026" : "Juni 2026"}
+            StudyHub {common.version} 0.2.1 - {footer.releaseDate}
           </p>
+
           <p className="mt-2 md:mt-0">
-            © {currentYear} StudyHub.{" "}
-            {language === "en"
-              ? "All rights reserved."
-              : "Alle rechten voorbehouden."}
+            © {currentYear} StudyHub. {footer.allRightsReserved}
           </p>
         </div>
       </div>
