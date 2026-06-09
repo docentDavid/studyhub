@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { mockArticles } from "@/data/mock-articles";
+import { getSourceTypeName } from "@/lib/source-types";
 import { useLanguage } from "@/lib/use-language";
+import type { SourceType } from "@/types/content";
 
 const copy = {
   en: {
@@ -12,10 +15,9 @@ const copy = {
       "Share an article, video, tool or guide with other students. Your submission will be reviewed before it becomes visible.",
     name: "Your name",
     sourceTitle: "Source title",
-    unit: "Unit",
     semester: "Semester",
-    type: "Type",
-    tags: "Tags",
+    type: "Content type",
+    topic: "Topic",
     url: "URL",
     reason: "Why is this useful?",
     reasonPlaceholder: "Explain why this source is helpful for other students.",
@@ -30,10 +32,9 @@ const copy = {
       "Deel een artikel, video, tool of guide met andere studenten. Je inzending wordt eerst gecontroleerd voordat deze zichtbaar wordt.",
     name: "Jouw naam",
     sourceTitle: "Titel van de bron",
-    unit: "Unit",
     semester: "Semester",
-    type: "Type",
-    tags: "Tags",
+    type: "Contenttype",
+    topic: "Onderwerp",
     url: "URL",
     reason: "Waarom is dit nuttig?",
     reasonPlaceholder:
@@ -45,11 +46,26 @@ const copy = {
 
 export function SubmitPageClient() {
   const language = useLanguage();
-
   const t = copy[language];
 
+  const approvedArticles = mockArticles.filter(
+    (article) => article.status === "approved",
+  );
+
+  const sourceTypes = Array.from(
+    new Set(approvedArticles.map((article) => article.sourceType)),
+  ).sort((a, b) => a.localeCompare(b));
+
+  const semesters = Array.from(
+    new Set(approvedArticles.flatMap((article) => article.semesters)),
+  ).sort((a, b) => a.localeCompare(b));
+
+  const topics = Array.from(
+    new Set(approvedArticles.flatMap((article) => article.tags)),
+  ).sort((a, b) => a.localeCompare(b));
+
   const fieldClassName =
-    "mt-2 w-full rounded-2xl border border-[var(--border)] bg-[var(--background)] p-3 text-[var(--foreground)] outline-none focus:ring-2 focus:ring-[var(--brand)]";
+    "mt-2 w-full rounded-2xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)] outline-none focus:ring-2 focus:ring-[var(--brand)]";
 
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
@@ -85,52 +101,40 @@ export function SubmitPageClient() {
               </label>
             </div>
 
-            <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <div className="mt-4 grid gap-4 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-sm md:grid-cols-3">
               <label className="font-bold text-[var(--foreground)]">
-                {t.unit}
+                {t.type}
                 <select className={fieldClassName}>
-                  <option>FED</option>
-                  <option>IM</option>
-                  <option>DES</option>
-                  <option>PROG</option>
-                  <option>GENERAL</option>
+                  {sourceTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {getSourceTypeName(type as SourceType, language)}
+                    </option>
+                  ))}
                 </select>
               </label>
 
               <label className="font-bold text-[var(--foreground)]">
                 {t.semester}
                 <select className={fieldClassName}>
-                  <option>Semester 1</option>
-                  <option>Semester 2</option>
-                  <option>Semester 3</option>
-                  <option>Semester 4</option>
+                  {semesters.map((semester) => (
+                    <option key={semester} value={semester}>
+                      {semester}
+                    </option>
+                  ))}
                 </select>
               </label>
 
               <label className="font-bold text-[var(--foreground)]">
-                {t.type}
+                {t.topic}
                 <select className={fieldClassName}>
-                  <option value="article">
-                    {language === "en" ? "Article" : "Artikel"}
-                  </option>
-                  <option value="guide">
-                    {language === "en" ? "Guide" : "Handleiding"}
-                  </option>
-                  <option value="video">Video</option>
-                  <option value="external-source">
-                    {language === "en" ? "External source" : "Externe bron"}
-                  </option>
-                  <option value="student-source">
-                    {language === "en" ? "Student source" : "Studentenbron"}
-                  </option>
+                  {topics.map((topic) => (
+                    <option key={topic} value={topic}>
+                      {topic}
+                    </option>
+                  ))}
                 </select>
               </label>
             </div>
-
-            <label className="mt-4 block font-bold text-[var(--foreground)]">
-              {t.tags}
-              <input className={fieldClassName} />
-            </label>
 
             <label className="mt-4 block font-bold text-[var(--foreground)]">
               {t.url}
