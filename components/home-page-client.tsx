@@ -439,6 +439,24 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                   {selectedTopic} ✕
                 </button>
               )}
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedType("");
+                  setSelectedSemester("");
+                  setSelectedTopic("");
+                  updateFilters({
+                    q: "",
+                    type: "",
+                    semester: "",
+                    topic: "",
+                  });
+                }}
+                className="rounded-full border border-[var(--border)] px-3 py-1 text-xs font-bold text-[var(--muted)] transition hover:bg-[var(--surface-soft)] hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+              >
+                {language === "en" ? "Clear all" : "Alles wissen"}
+              </button>
             </div>
           )}
         </section>
