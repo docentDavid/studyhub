@@ -57,9 +57,10 @@ export function TopControls() {
       <button
         type="button"
         onClick={() => changeLanguage("en")}
-        className={`rounded-full px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-[var(--brand)] ${
-          language === "en" ? activeButtonClassName : inactiveButtonClassName
-        }`}
+        className={`cursor-pointer rounded-full px-3 py-2 text-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)] hover:opacity-90 
+          ${
+            language === "en" ? activeButtonClassName : inactiveButtonClassName
+          }`}
         aria-label="Switch to English"
         aria-pressed={language === "en"}
       >
@@ -69,9 +70,10 @@ export function TopControls() {
       <button
         type="button"
         onClick={() => changeLanguage("nl")}
-        className={`rounded-full px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-[var(--brand)] ${
-          language === "nl" ? activeButtonClassName : inactiveButtonClassName
-        }`}
+        className={`cursor-pointer rounded-full px-3 py-2 text-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)] hover:opacity-90 
+          ${
+            language === "nl" ? activeButtonClassName : inactiveButtonClassName
+          }`}
         aria-label="Switch to Dutch"
         aria-pressed={language === "nl"}
       >
@@ -83,7 +85,7 @@ export function TopControls() {
       <button
         type="button"
         onClick={toggleTheme}
-        className="rounded-full bg-[var(--brand-soft)] px-3 py-2 text-sm text-[var(--brand)] transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+        className="cursor-pointer rounded-full bg-[var(--brand-soft)] px-3 py-2 text-sm text-[var(--brand)] transition hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]"
         aria-label={
           theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
         }

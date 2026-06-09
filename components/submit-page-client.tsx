@@ -76,8 +76,8 @@ export function SubmitPageClient() {
     "mt-2 w-full rounded-2xl border border-[var(--border)] bg-[var(--background)] p-3 text-[var(--foreground)] outline-none focus:ring-2 focus:ring-[var(--brand)]";
 
   return (
-    <main className="min-h-screen bg-[var(--background)] px-4 py-8 text-[var(--foreground)] sm:px-6 lg:px-8">
-      <section className="mx-auto max-w-6xl">
+    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
         <Link
           href="/"
           className="mb-6 inline-flex rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-sm font-bold text-[var(--brand)] transition hover:bg-[var(--brand-soft)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"

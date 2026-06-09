@@ -16,10 +16,10 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("http://localhost:3000"),
+  metadataBase: new URL("https://studyhub-three-kappa.vercel.app/"),
   title: {
-    default: "StudyHub",
-    template: "%s | StudyHub",
+    default: "StudyHub | Home",
+    template: "StudyHub | %s",
   },
   icons: {
     icon: "/favicon.ico",

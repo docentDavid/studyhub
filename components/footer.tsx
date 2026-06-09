@@ -52,6 +52,7 @@ export function Footer() {
           >
             <Link
               href="/"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
             >
               {language === "en" ? "Home" : "Start"}
@@ -65,10 +66,10 @@ export function Footer() {
             </Link>
 
             <Link
-              href="#"
-              className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+              href="/privacy"
+              className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]"
             >
-              Privacy
+              {language === "en" ? "Privacy" : "Privacy"}
             </Link>
           </nav>
         </div>
