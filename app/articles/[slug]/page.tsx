@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { mockArticles } from "@/data/mock-articles";
 import { ArticlePageClient } from "@/components/article-page-client";
 import { ArticleReadingLayoutClient } from "@/components/article-reading-layout-client";
+import { ArticlePageHeaderClient } from "@/components/article-page-header-client";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -66,23 +66,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-      <header className="border-b border-[var(--border)] bg-[var(--surface)]/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <Link
-            href="/"
-            className="font-black text-[var(--brand)] transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
-          >
-            ← All articles
-          </Link>
-
-          <Link
-            href="/submit"
-            className="rounded-2xl bg-[var(--brand-dark)] px-4 py-2 text-sm font-bold text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
-          >
-            Submit source
-          </Link>
-        </div>
-      </header>
+      <ArticlePageHeaderClient />
 
       <ArticleReadingLayoutClient
         article={article}

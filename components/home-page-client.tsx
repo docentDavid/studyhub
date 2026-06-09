@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { Article } from "@/types/content";
+import { Article, SourceType } from "@/types/content";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getSourceTypeLabel, getSourceTypeName } from "@/lib/source-types";
 
 type Language = "en" | "nl";
 
@@ -11,68 +12,11 @@ type HomePageClientProps = {
   articles: Article[];
 };
 
-function getSourceTypeLabel(sourceType: string, language: Language) {
-  const labels = {
-    guide: {
-      en: "📘 Guide",
-      nl: "📘 Handleiding",
-    },
-    article: {
-      en: "📰 Article",
-      nl: "📰 Artikel",
-    },
-    video: {
-      en: "🎥 Video",
-      nl: "🎥 Video",
-    },
-    "external-source": {
-      en: "🔗 External Source",
-      nl: "🔗 Externe Bron",
-    },
-    "student-source": {
-      en: "🎓 Student Source",
-      nl: "🎓 Studentenbron",
-    },
-  };
-
-  return (
-    labels[sourceType as keyof typeof labels]?.[language] ??
-    (language === "en" ? "Resource" : "Bron")
-  );
-}
-
 function formatTopic(sourceType: string) {
   return sourceType
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
-}
-
-function getSourceTypeName(sourceType: string, language: Language) {
-  const names = {
-    article: {
-      en: "Article",
-      nl: "Artikel",
-    },
-    guide: {
-      en: "Guide",
-      nl: "Handleiding",
-    },
-    video: {
-      en: "Video",
-      nl: "Video",
-    },
-    "external-source": {
-      en: "External Source",
-      nl: "Externe Bron",
-    },
-    "student-source": {
-      en: "Student Source",
-      nl: "Studentenbron",
-    },
-  };
-
-  return names[sourceType as keyof typeof names]?.[language] ?? sourceType;
 }
 
 const copy = {
@@ -410,7 +354,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                   }}
                   className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-semibold text-[var(--brand)]"
                 >
-                  {getSourceTypeName(selectedType, language)} ✕
+                  {getSourceTypeName(selectedType as SourceType, language)} ✕
                 </button>
               )}
 

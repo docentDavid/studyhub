@@ -134,11 +134,19 @@ export function SubmitPageClient() {
               <label className="font-bold text-[var(--foreground)]">
                 {t.type}
                 <select className={fieldClassName}>
-                  <option>external-source</option>
-                  <option>article</option>
-                  <option>video</option>
-                  <option>guide</option>
-                  <option>student-source</option>
+                  <option value="article">
+                    {language === "en" ? "Article" : "Artikel"}
+                  </option>
+                  <option value="guide">
+                    {language === "en" ? "Guide" : "Handleiding"}
+                  </option>
+                  <option value="video">Video</option>
+                  <option value="external-source">
+                    {language === "en" ? "External source" : "Externe bron"}
+                  </option>
+                  <option value="student-source">
+                    {language === "en" ? "Student source" : "Studentenbron"}
+                  </option>
                 </select>
               </label>
             </div>
