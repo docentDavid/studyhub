@@ -294,3 +294,17 @@ export const homePageCopy = {
   clearAll: string;
   clearFilters: string;
 }>;
+
+export const articlePageHeaderCopy = {
+  en: {
+    allArticles: "All articles",
+    submitSource: "Submit source",
+  },
+  nl: {
+    allArticles: "Alle artikelen",
+    submitSource: "Bron insturen",
+  },
+} satisfies LocalizedCopy<{
+  allArticles: string;
+  submitSource: string;
+}>;
