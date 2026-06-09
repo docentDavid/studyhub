@@ -10,7 +10,7 @@ export function SiteBranding() {
     <Link
       href="/"
       aria-label="Go to homepage"
-      className="block cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--brand)] focus:ring-offset-2"
+      className="block cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)] focus-visible:ring-offset-2"
     >
       <p className="text-sm font-black uppercase tracking-wide text-[var(--brand)]">
         StudyHub

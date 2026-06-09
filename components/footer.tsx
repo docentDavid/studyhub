@@ -29,14 +29,14 @@ export function Footer() {
             <Link
               href="/"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+              className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]"
             >
               {language === "en" ? "Home" : "Start"}
             </Link>
 
             <Link
               href="/submit"
-              className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
+              className="text-[var(--muted)] transition hover:text-[var(--brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]"
             >
               {language === "en" ? "Contribute" : "Bijdragen"}
             </Link>
