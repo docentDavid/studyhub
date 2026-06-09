@@ -382,6 +382,65 @@ export function HomePageClient({ articles }: HomePageClientProps) {
               {t.showingResources(filteredArticles.length)}
             </p>
           </div>
+
+          {(searchQuery ||
+            selectedType ||
+            selectedSemester ||
+            selectedTopic) && (
+            <div className="mb-5 flex flex-wrap gap-2">
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery("");
+                    updateFilters({ q: "" });
+                  }}
+                  className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-semibold text-[var(--brand)]"
+                >
+                  {searchQuery} ✕
+                </button>
+              )}
+
+              {selectedType && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedType("");
+                    updateFilters({ type: "" });
+                  }}
+                  className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-semibold text-[var(--brand)]"
+                >
+                  {getSourceTypeName(selectedType, language)} ✕
+                </button>
+              )}
+
+              {selectedSemester && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedSemester("");
+                    updateFilters({ semester: "" });
+                  }}
+                  className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-semibold text-[var(--brand)]"
+                >
+                  {selectedSemester} ✕
+                </button>
+              )}
+
+              {selectedTopic && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedTopic("");
+                    updateFilters({ topic: "" });
+                  }}
+                  className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-semibold text-[var(--brand)]"
+                >
+                  {selectedTopic} ✕
+                </button>
+              )}
+            </div>
+          )}
         </section>
 
         {filteredArticles.length === 0 ? (
