@@ -1,43 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useLanguage } from "@/lib/use-language";
 import { Article } from "@/types/content";
 import { MarkdownContent } from "@/components/markdown-content";
-
-type Language = "en" | "nl";
 
 type ArticlePageClientProps = {
   article: Article;
 };
 
 export function ArticlePageClient({ article }: ArticlePageClientProps) {
-  const [language, setLanguage] = useState<Language>(() => {
-    if (typeof window === "undefined") {
-      return "en";
-    }
-
-    const savedLanguage = localStorage.getItem("language");
-
-    return savedLanguage === "en" || savedLanguage === "nl"
-      ? savedLanguage
-      : "en";
-  });
-
-  useEffect(() => {
-    function handleLanguageChange(event: Event) {
-      const customEvent = event as CustomEvent<Language>;
-
-      if (customEvent.detail === "en" || customEvent.detail === "nl") {
-        setLanguage(customEvent.detail);
-      }
-    }
-
-    window.addEventListener("language-change", handleLanguageChange);
-
-    return () => {
-      window.removeEventListener("language-change", handleLanguageChange);
-    };
-  }, []);
+  const language = useLanguage();
 
   return (
     <>

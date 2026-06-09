@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { Article, SourceType } from "@/types/content";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getSourceTypeLabel, getSourceTypeName } from "@/lib/source-types";
-
-type Language = "en" | "nl";
+import { useLanguage } from "@/lib/use-language";
 
 type HomePageClientProps = {
   articles: Article[];
@@ -58,17 +57,7 @@ const copy = {
 export function HomePageClient({ articles }: HomePageClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [language, setLanguage] = useState<Language>(() => {
-    if (typeof window === "undefined") {
-      return "en";
-    }
-
-    const savedLanguage = localStorage.getItem("language");
-
-    return savedLanguage === "en" || savedLanguage === "nl"
-      ? savedLanguage
-      : "en";
-  });
+  const language = useLanguage();
 
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
   const [selectedType, setSelectedType] = useState(
@@ -80,22 +69,6 @@ export function HomePageClient({ articles }: HomePageClientProps) {
   const [selectedTopic, setSelectedTopic] = useState(
     searchParams.get("topic") ?? "",
   );
-
-  useEffect(() => {
-    function handleLanguageChange(event: Event) {
-      const customEvent = event as CustomEvent<Language>;
-
-      if (customEvent.detail === "en" || customEvent.detail === "nl") {
-        setLanguage(customEvent.detail);
-      }
-    }
-
-    window.addEventListener("language-change", handleLanguageChange);
-
-    return () => {
-      window.removeEventListener("language-change", handleLanguageChange);
-    };
-  }, []);
 
   function updateFilters(nextFilters: {
     q?: string;
@@ -153,29 +126,17 @@ export function HomePageClient({ articles }: HomePageClientProps) {
     )
     .slice(0, 4);
 
-  const sourceTypes = useMemo(
-    () =>
-      Array.from(
-        new Set(approvedArticles.map((article) => article.sourceType)),
-      ).sort((a, b) => a.localeCompare(b)),
-    [approvedArticles],
-  );
+  const sourceTypes = Array.from(
+    new Set(approvedArticles.map((article) => article.sourceType)),
+  ).sort((a, b) => a.localeCompare(b));
 
-  const semesters = useMemo(
-    () =>
-      Array.from(
-        new Set(approvedArticles.flatMap((article) => article.semesters)),
-      ).sort((a, b) => a.localeCompare(b)),
-    [approvedArticles],
-  );
+  const semesters = Array.from(
+    new Set(approvedArticles.flatMap((article) => article.semesters)),
+  ).sort((a, b) => a.localeCompare(b));
 
-  const tags = useMemo(
-    () =>
-      Array.from(
-        new Set(approvedArticles.flatMap((article) => article.tags)),
-      ).sort((a, b) => a.localeCompare(b)),
-    [approvedArticles],
-  );
+  const tags = Array.from(
+    new Set(approvedArticles.flatMap((article) => article.tags)),
+  ).sort((a, b) => a.localeCompare(b));
 
   const t = copy[language];
 

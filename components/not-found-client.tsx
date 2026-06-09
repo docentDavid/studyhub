@@ -1,34 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
-type Language = "en" | "nl";
+import { useLanguage } from "@/lib/use-language";
 
 export function NotFoundClient() {
-  const [language, setLanguage] = useState<Language>("en");
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as Language | null;
-
-    if (savedLanguage === "en" || savedLanguage === "nl") {
-      setLanguage(savedLanguage);
-    }
-
-    function handleLanguageChange(event: Event) {
-      const customEvent = event as CustomEvent<Language>;
-
-      if (customEvent.detail === "en" || customEvent.detail === "nl") {
-        setLanguage(customEvent.detail);
-      }
-    }
-
-    window.addEventListener("language-change", handleLanguageChange);
-
-    return () => {
-      window.removeEventListener("language-change", handleLanguageChange);
-    };
-  }, []);
+  const language = useLanguage();
 
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">

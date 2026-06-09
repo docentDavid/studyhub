@@ -1,11 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Language, useLanguage } from "@/lib/use-language";
 
-type Language = "en" | "nl";
-
-const copy = {
+const copy: Record<
+  Language,
+  {
+    back: string;
+    label: string;
+    title: string;
+    intro: string;
+    sections: {
+      title: string;
+      text: string;
+    }[];
+  }
+> = {
   en: {
     back: "Back to homepage",
     label: "Privacy",
@@ -67,30 +77,7 @@ const copy = {
 };
 
 export function PrivacyPageClient() {
-  const [language, setLanguage] = useState<Language>("en");
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as Language | null;
-
-    if (savedLanguage === "en" || savedLanguage === "nl") {
-      setLanguage(savedLanguage);
-    }
-
-    function handleLanguageChange(event: Event) {
-      const customEvent = event as CustomEvent;
-
-      if (customEvent.detail === "en" || customEvent.detail === "nl") {
-        setLanguage(customEvent.detail);
-      }
-    }
-
-    window.addEventListener("language-change", handleLanguageChange);
-
-    return () => {
-      window.removeEventListener("language-change", handleLanguageChange);
-    };
-  }, []);
-
+  const language = useLanguage();
   const t = copy[language];
 
   return (

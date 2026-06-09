@@ -1,39 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
-type Language = "en" | "nl";
+import { useLanguage } from "@/lib/use-language";
 
 export function Footer() {
-  const [language, setLanguage] = useState<Language>(() => {
-    if (typeof window === "undefined") {
-      return "en";
-    }
-
-    const savedLanguage = localStorage.getItem("language");
-
-    return savedLanguage === "en" || savedLanguage === "nl"
-      ? savedLanguage
-      : "en";
-  });
+  const language = useLanguage();
   const currentYear = new Date().getFullYear();
-
-  useEffect(() => {
-    function handleLanguageChange(event: Event) {
-      const customEvent = event as CustomEvent<Language>;
-
-      if (customEvent.detail === "en" || customEvent.detail === "nl") {
-        setLanguage(customEvent.detail);
-      }
-    }
-
-    window.addEventListener("language-change", handleLanguageChange);
-
-    return () => {
-      window.removeEventListener("language-change", handleLanguageChange);
-    };
-  }, []);
 
   return (
     <footer className="mt-4 border-t border-[var(--border)] bg-[var(--surface)]">

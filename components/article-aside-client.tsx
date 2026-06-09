@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useLanguage } from "@/lib/use-language";
 import { Article } from "@/types/content";
-
-type Language = "en" | "nl";
 
 type ArticleAsideClientProps = {
   article: Article;
@@ -17,33 +15,7 @@ export function ArticleAsideClient({
   relatedArticles,
   onHide,
 }: ArticleAsideClientProps) {
-  const [language, setLanguage] = useState<Language>(() => {
-    if (typeof window === "undefined") {
-      return "en";
-    }
-
-    const savedLanguage = localStorage.getItem("language");
-
-    return savedLanguage === "en" || savedLanguage === "nl"
-      ? savedLanguage
-      : "en";
-  });
-
-  useEffect(() => {
-    function handleLanguageChange(event: Event) {
-      const customEvent = event as CustomEvent<Language>;
-
-      if (customEvent.detail === "en" || customEvent.detail === "nl") {
-        setLanguage(customEvent.detail);
-      }
-    }
-
-    window.addEventListener("language-change", handleLanguageChange);
-
-    return () => {
-      window.removeEventListener("language-change", handleLanguageChange);
-    };
-  }, []);
+  const language = useLanguage();
 
   const copy = {
     en: {
