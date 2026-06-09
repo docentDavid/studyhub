@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Article } from "@/types/content";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type Language = "en" | "nl";
 
@@ -111,12 +112,20 @@ const copy = {
 };
 
 export function HomePageClient({ articles }: HomePageClientProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [language, setLanguage] = useState<Language>("en");
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedType, setSelectedType] = useState("");
-  const [selectedSemester, setSelectedSemester] = useState("");
-  const [selectedTopic, setSelectedTopic] = useState("");
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
+  const [selectedType, setSelectedType] = useState(
+    searchParams.get("type") ?? "",
+  );
+  const [selectedSemester, setSelectedSemester] = useState(
+    searchParams.get("semester") ?? "",
+  );
+  const [selectedTopic, setSelectedTopic] = useState(
+    searchParams.get("topic") ?? "",
+  );
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language") as Language | null;
@@ -139,6 +148,29 @@ export function HomePageClient({ articles }: HomePageClientProps) {
       window.removeEventListener("language-change", handleLanguageChange);
     };
   }, []);
+
+  function updateFilters(nextFilters: {
+    q?: string;
+    type?: string;
+    semester?: string;
+    topic?: string;
+  }) {
+    const params = new URLSearchParams(searchParams.toString());
+
+    Object.entries(nextFilters).forEach(([key, value]) => {
+      if (value) {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
+    });
+
+    const queryString = params.toString();
+
+    router.replace(queryString ? `/?${queryString}` : "/", {
+      scroll: false,
+    });
+  }
 
   const approvedArticles = articles.filter(
     (article) => article.status === "approved",
@@ -281,13 +313,23 @@ export function HomePageClient({ articles }: HomePageClientProps) {
               className={fieldClassName}
               placeholder={t.search}
               value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
+              onChange={(event) => {
+                const value = event.target.value;
+
+                setSearchQuery(value);
+                updateFilters({ q: value });
+              }}
             />
 
             <select
               className={fieldClassName}
               value={selectedType}
-              onChange={(event) => setSelectedType(event.target.value)}
+              onChange={(event) => {
+                const value = event.target.value;
+
+                setSelectedType(value);
+                updateFilters({ type: value });
+              }}
             >
               <option value="">{t.allContentTypes}</option>
               {sourceTypes.map((type) => (
@@ -300,7 +342,12 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             <select
               className={fieldClassName}
               value={selectedSemester}
-              onChange={(event) => setSelectedSemester(event.target.value)}
+              onChange={(event) => {
+                const value = event.target.value;
+
+                setSelectedSemester(value);
+                updateFilters({ semester: value });
+              }}
             >
               <option value="">{t.allSemesters}</option>
 
@@ -314,7 +361,12 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             <select
               className={fieldClassName}
               value={selectedTopic}
-              onChange={(event) => setSelectedTopic(event.target.value)}
+              onChange={(event) => {
+                const value = event.target.value;
+
+                setSelectedTopic(value);
+                updateFilters({ topic: value });
+              }}
             >
               <option value="">{t.allTopics}</option>
 
