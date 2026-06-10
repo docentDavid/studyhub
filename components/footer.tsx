@@ -16,11 +16,11 @@ export function Footer() {
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="text-center md:text-left">
             <p className="text-sm font-black uppercase tracking-wide text-[var(--brand)]">
-              StudyHub
+              {common.portalName}
             </p>
 
             <p className="mt-1 text-sm text-[var(--muted)]">
-              {footer.portalLabel}
+              {common.portalLabel}
             </p>
           </div>
 
@@ -54,11 +54,11 @@ export function Footer() {
 
         <div className="mt-4 text-center text-xs text-[var(--muted)] md:flex md:items-center md:justify-between md:text-left">
           <p>
-            StudyHub {common.version} 0.2.1 - {footer.releaseDate}
+            {common.portalName} {common.version} 0.2.1 - {footer.releaseDate}
           </p>
 
           <p className="mt-2 md:mt-0">
-            © {currentYear} StudyHub. {footer.allRightsReserved}
+            © {currentYear} {common.portalName}. {footer.allRightsReserved}
           </p>
         </div>
       </div>

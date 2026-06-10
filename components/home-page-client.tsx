@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { Article, SourceType } from "@/types/content";
 import { useRouter, useSearchParams } from "next/navigation";
-import { getSourceTypeLabel, getSourceTypeName } from "@/lib/source-types";
-import { homePageCopy } from "@/lib/i18n/copy";
+import { getSourceTypeName } from "@/lib/source-types";
+import { commonCopy, homePageCopy } from "@/lib/i18n/copy";
 import { useLanguage } from "@/lib/use-language";
+import { formatDate } from "@/lib/format-data";
 
 type HomePageClientProps = {
   articles: Article[];
@@ -22,8 +23,10 @@ function formatTopic(sourceType: string) {
 export function HomePageClient({ articles }: HomePageClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const language = useLanguage();
   const homePage = homePageCopy[language];
+  const common = commonCopy[language];
 
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
   const [selectedType, setSelectedType] = useState(
@@ -126,7 +129,7 @@ export function HomePageClient({ articles }: HomePageClientProps) {
             href="/submit"
             className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[var(--brand-dark)] transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[var(--brand-dark)]"
           >
-            {homePage.submitResource}
+            {common.submitResource}
           </Link>
         </header>
 
@@ -146,23 +149,34 @@ export function HomePageClient({ articles }: HomePageClientProps) {
               <Link
                 key={article.id}
                 href={`/articles/${article.slug}`}
-                className={`${cardClassName} min-w-[85%] snap-start md:min-w-0`}
+                className={`${cardClassName} group flex flex-col`}
               >
-                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
-                  {getSourceTypeLabel(article.sourceType, language)}
-                </p>
+                <div className="mb-5 flex items-center justify-between gap-3">
+                  <p className="text-xs font-black uppercase tracking-wide text-[var(--muted)]">
+                    {getSourceTypeName(
+                      article.sourceType as SourceType,
+                      language,
+                    ) || article.sourceType}
+                  </p>
 
-                <h3 className="text-lg font-black tracking-tight">
+                  <span className="shrink-0 rounded-full border border-[var(--border)] bg-[var(--surface-soft)] px-3 py-1 text-xs font-bold text-[var(--muted)]">
+                    {article.semesters[0]}
+                  </span>
+                </div>
+
+                <h2 className="text-xl font-black tracking-tight transition group-hover:text-[var(--brand)]">
                   {article.title[language]}
-                </h3>
+                </h2>
 
-                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
+                <p className="mt-3 line-clamp-2 text-sm leading-6 text-[var(--muted)]">
                   {article.summary[language]}
                 </p>
 
-                <p className="mt-5 text-xs font-semibold text-[var(--muted)]">
-                  {homePage.updated} {article.updatedAt}
-                </p>
+                <div className="mt-auto pt-6 text-xs font-semibold text-[var(--muted)]">
+                  <p>
+                    {homePage.by}: <strong>{article.authorName}</strong>
+                  </p>
+                </div>
               </Link>
             ))}
           </div>
@@ -361,42 +375,31 @@ export function HomePageClient({ articles }: HomePageClientProps) {
               <Link
                 key={article.id}
                 href={`/articles/${article.slug}`}
-                className={cardClassName}
+                className={`${cardClassName} group flex flex-col`}
               >
-                <div className="mb-4 flex flex-wrap gap-2">
-                  {article.units.map((unit) => (
-                    <span
-                      key={unit}
-                      className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-bold text-[var(--brand)]"
-                    >
-                      {unit}
-                    </span>
-                  ))}
+                <div className="mb-5 flex items-center justify-between gap-3">
+                  <p className="text-xs font-black uppercase tracking-wide text-[var(--muted)]">
+                    {getSourceTypeName(
+                      article.sourceType as SourceType,
+                      language,
+                    )}
+                  </p>
 
-                  {article.semesters.map((semester) => (
-                    <span
-                      key={semester}
-                      className="rounded-full border border-[var(--border)] bg-[var(--surface-soft)] px-3 py-1 text-xs font-bold text-[var(--muted)]"
-                    >
-                      {semester}
-                    </span>
-                  ))}
+                  <span className="shrink-0 rounded-full border border-[var(--border)] bg-[var(--surface-soft)] px-3 py-1 text-xs font-bold text-[var(--muted)]">
+                    {article.semesters[0]}
+                  </span>
                 </div>
 
-                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
-                  {getSourceTypeLabel(article.sourceType, language)}
-                </p>
-
-                <h2 className="text-xl font-black tracking-tight">
+                <h2 className="text-xl font-black tracking-tight transition group-hover:text-[var(--brand)]">
                   {article.title[language]}
                 </h2>
 
-                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
+                <p className="mt-3 line-clamp-2 text-sm leading-6 text-[var(--muted)]">
                   {article.summary[language]}
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {article.tags.map((tag) => (
+                  {article.tags.slice(0, 3).map((tag) => (
                     <span
                       key={tag}
                       className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-semibold text-[var(--brand)]"
@@ -406,10 +409,16 @@ export function HomePageClient({ articles }: HomePageClientProps) {
                   ))}
                 </div>
 
-                <p className="mt-5 text-xs font-semibold text-[var(--muted)]">
-                  {homePage.updated} {article.updatedAt}
-                  {homePage.by} {article.authorName}
-                </p>
+                <div className="mt-auto pt-6 text-xs font-semibold text-[var(--muted)]">
+                  <p>
+                    {homePage.by}: <strong>{article.authorName}</strong>
+                  </p>
+
+                  <p className="mt-1">
+                    {common.updated}:{" "}
+                    <strong>{formatDate(article.updatedAt, language)}</strong>
+                  </p>
+                </div>
               </Link>
             ))}
           </section>

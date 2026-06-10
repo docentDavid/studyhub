@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/lib/use-language";
-import { articleAsideCopy } from "@/lib/i18n/copy";
-import { Article } from "@/types/content";
+import { commonCopy, articleAsideCopy } from "@/lib/i18n/copy";
+import { Article, SourceType } from "@/types/content";
+import { getSourceTypeName } from "@/lib/source-types";
+import { formatDate } from "@/lib/format-data";
 
 type ArticleAsideClientProps = {
   article: Article;
@@ -18,6 +20,7 @@ export function ArticleAsideClient({
 }: ArticleAsideClientProps) {
   const language = useLanguage();
   const articleAside = articleAsideCopy[language];
+  const common = commonCopy[language];
 
   return (
     <aside className="space-y-5 lg:sticky lg:top-8 lg:self-start">
@@ -44,14 +47,31 @@ export function ArticleAsideClient({
             <dt className="font-bold text-[var(--foreground)]">
               {articleAside.type}
             </dt>
-            <dd>{article.sourceType}</dd>
+            <dd>
+              {getSourceTypeName(article.sourceType as SourceType, language)}
+            </dd>
           </div>
 
           <div>
             <dt className="font-bold text-[var(--foreground)]">
-              {articleAside.updated}
+              {common.updated}
             </dt>
-            <dd>{article.updatedAt}</dd>
+            <dd>{formatDate(article.updatedAt, language)}</dd>
+          </div>
+          <div>
+            <dt className="font-bold text-[var(--foreground)]">
+              {articleAside.topics}
+            </dt>
+            <dd className="mt-2 flex flex-wrap gap-2">
+              {article.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-semibold text-[var(--brand)]"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </dd>
           </div>
         </dl>
       </section>

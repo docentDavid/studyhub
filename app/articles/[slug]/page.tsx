@@ -73,38 +73,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         relatedArticles={relatedArticles}
       >
         <article className={`${panelClassName} p-6 md:p-10`}>
-          <div className="mb-5 flex flex-wrap gap-2">
-            {article.units.map((unit) => (
-              <span
-                key={unit}
-                className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-bold text-[var(--brand)]"
-              >
-                {unit}
-              </span>
-            ))}
-
-            {article.semesters.map((semester) => (
-              <span
-                key={semester}
-                className="rounded-full border border-[var(--border)] bg-[var(--surface-soft)] px-3 py-1 text-xs font-bold text-[var(--muted)]"
-              >
-                {semester}
-              </span>
-            ))}
-          </div>
-
           <ArticlePageClient article={article} />
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {article.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-semibold text-[var(--brand)]"
-              >
-                #{tag}
-              </span>
-            ))}
-          </div>
         </article>
       </ArticleReadingLayoutClient>
     </main>

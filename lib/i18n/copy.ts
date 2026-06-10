@@ -4,9 +4,12 @@ export type LocalizedCopy<T> = Record<Language, T>;
 export const commonCopy = {
   en: {
     goToHomepage: "Go to homepage",
+    portalName: "StudyHub",
     portalLabel: "Student Information Portal",
     cancel: "Cancel",
     submitForReview: "Submit for review",
+    submitResource: "Submit resource",
+    updated: "Updated",
     privacy: "Privacy",
     home: "Home",
     contribute: "Contribute",
@@ -14,9 +17,12 @@ export const commonCopy = {
   },
   nl: {
     goToHomepage: "Ga naar startpagina",
+    portalName: "StudyHub",
     portalLabel: "Studenten Informatieportaal",
     cancel: "Annuleren",
     submitForReview: "Insturen ter beoordeling",
+    submitResource: "Bron insturen",
+    updated: "Bijgewerkt",
     privacy: "Privacy",
     home: "Start",
     contribute: "Bijdragen",
@@ -24,9 +30,12 @@ export const commonCopy = {
   },
 } satisfies LocalizedCopy<{
   goToHomepage: string;
+  portalName: string;
   portalLabel: string;
   cancel: string;
   submitForReview: string;
+  submitResource: string;
+  updated: string;
   privacy: string;
   home: string;
   contribute: string;
@@ -76,19 +85,16 @@ export const submitPageCopy = {
 
 export const footerCopy = {
   en: {
-    portalLabel: "Student information portal",
     releaseDate: "June 2026",
     allRightsReserved: "All rights reserved.",
     navigationLabel: "Footer navigation",
   },
   nl: {
-    portalLabel: "Studenten informatieportaal",
     releaseDate: "Juni 2026",
     allRightsReserved: "Alle rechten voorbehouden.",
     navigationLabel: "Footer navigatie",
   },
 } satisfies LocalizedCopy<{
-  portalLabel: string;
   releaseDate: string;
   allRightsReserved: string;
   navigationLabel: string;
@@ -96,7 +102,6 @@ export const footerCopy = {
 
 export const privacyPageCopy = {
   en: {
-    back: "Back to homepage",
     label: "Privacy",
     title: "Privacy statement",
     intro:
@@ -125,7 +130,6 @@ export const privacyPageCopy = {
     ],
   },
   nl: {
-    back: "Terug naar startpagina",
     label: "Privacy",
     title: "Privacyverklaring",
     intro:
@@ -154,7 +158,6 @@ export const privacyPageCopy = {
     ],
   },
 } satisfies LocalizedCopy<{
-  back: string;
   label: string;
   title: string;
   intro: string;
@@ -162,20 +165,6 @@ export const privacyPageCopy = {
     title: string;
     text: string;
   }[];
-}>;
-
-export const siteBrandingCopy = {
-  en: {
-    portalLabel: "Student Information Portal",
-    goToHomepage: "Go to homepage",
-  },
-  nl: {
-    portalLabel: "Studenten Informatieportaal",
-    goToHomepage: "Ga naar startpagina",
-  },
-} satisfies LocalizedCopy<{
-  portalLabel: string;
-  goToHomepage: string;
 }>;
 
 export const notFoundPageCopy = {
@@ -200,7 +189,7 @@ export const articleAsideCopy = {
     articleInfo: "Article info",
     author: "Author",
     type: "Type",
-    updated: "Updated",
+    topics: "Topics",
     related: "Related articles",
     noRelated: "No related articles yet.",
   },
@@ -210,7 +199,7 @@ export const articleAsideCopy = {
     articleInfo: "Artikelinfo",
     author: "Auteur",
     type: "Type",
-    updated: "Bijgewerkt",
+    topics: "Onderwerpen",
     related: "Gerelateerde artikelen",
     noRelated: "Nog geen gerelateerde artikelen.",
   },
@@ -220,7 +209,7 @@ export const articleAsideCopy = {
   articleInfo: string;
   author: string;
   type: string;
-  updated: string;
+  topics: string;
   related: string;
   noRelated: string;
 }>;
@@ -230,7 +219,6 @@ export const homePageCopy = {
     title: "Inspiration, guides and resources for students.",
     description:
       "Useful articles, tutorials and curated resources to support your studies, develop new skills and stay inspired throughout your learning journey.",
-    submitResource: "Submit Resource",
     search: "Search articles...",
     allContentTypes: "All content types",
     allSemesters: "All semesters",
@@ -238,7 +226,6 @@ export const homePageCopy = {
     latestResources: "Latest resources",
     latestDescription: "Recently added articles, guides and useful sources.",
     allResources: "All resources",
-    updated: "Updated",
     by: "By",
     filterTitle: "Filter resources",
     filterDescription: "Search and filter the resource library.",
@@ -253,7 +240,6 @@ export const homePageCopy = {
     title: "Inspiratie, handleidingen en bronnen voor studenten.",
     description:
       "Nuttige artikelen, tutorials en geselecteerde bronnen om je studie te ondersteunen, nieuwe vaardigheden te ontwikkelen en geïnspireerd te blijven tijdens je leerproces.",
-    submitResource: "Bron insturen",
     search: "Zoek artikelen...",
     allContentTypes: "Alle content types",
     allSemesters: "Alle semesters",
@@ -262,7 +248,6 @@ export const homePageCopy = {
     latestDescription:
       "Recent toegevoegde artikelen, gidsen en nuttige bronnen.",
     allResources: "Alle bronnen",
-    updated: "Bijgewerkt",
     by: "Door",
     filterTitle: "Filter bronnen",
     filterDescription: "Zoek en filter door de bronnenbibliotheek.",
@@ -276,7 +261,6 @@ export const homePageCopy = {
 } satisfies LocalizedCopy<{
   title: string;
   description: string;
-  submitResource: string;
   search: string;
   allContentTypes: string;
   allSemesters: string;
@@ -284,27 +268,23 @@ export const homePageCopy = {
   latestResources: string;
   latestDescription: string;
   allResources: string;
-  updated: string;
   by: string;
   filterTitle: string;
   filterDescription: string;
-  showingResources: (count: number) => string;
   emptyStateTitle: string;
   emptyStateDescription: string;
   clearAll: string;
   clearFilters: string;
+  showingResources: (count: number) => string;
 }>;
 
 export const articlePageHeaderCopy = {
   en: {
     allArticles: "All articles",
-    submitSource: "Submit source",
   },
   nl: {
     allArticles: "Alle artikelen",
-    submitSource: "Bron insturen",
   },
 } satisfies LocalizedCopy<{
   allArticles: string;
-  submitSource: string;
 }>;
