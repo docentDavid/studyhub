@@ -19,7 +19,7 @@ export function ArticleReadingLayoutClient({
 
   return (
     <div
-      className={`mx-auto grid max-w-6xl gap-8 px-4 py-8 sm:px-6 lg:px-8 ${
+      className={`mx-auto grid max-w-6xl gap-8 px-4 pt-6 pb-16 sm:px-6 lg:px-8 ${
         showAside ? "lg:grid-cols-[1fr_280px]" : "lg:grid-cols-1"
       }`}
     >
