@@ -27,6 +27,7 @@ export type Article = {
   tags: string[];
 
   authorName: string;
+  sourceUrl: string;
   sourceType: SourceType;
   status: ContentStatus;
   url?: string;

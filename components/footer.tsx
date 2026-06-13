@@ -54,7 +54,7 @@ export function Footer() {
 
         <div className="mt-4 text-center text-xs text-[var(--muted)] md:flex md:items-center md:justify-between md:text-left">
           <p>
-            {common.portalName} {common.version} 0.2.1 - {footer.releaseDate}
+            {common.portalName} {common.version} 2026.3.1 - {footer.releaseDate}
           </p>
 
           <p className="mt-2 md:mt-0">
